@@ -1,0 +1,1 @@
+struct Table7 end

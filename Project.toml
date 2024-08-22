@@ -1,0 +1,13 @@
+name = "Cap18"
+uuid = "6f195327-82d4-45b8-9f00-09392963f808"
+authors = ["Cole Miller"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.10"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

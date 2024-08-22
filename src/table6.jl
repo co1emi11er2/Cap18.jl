@@ -1,0 +1,1 @@
+struct Table6 end

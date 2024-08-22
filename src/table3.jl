@@ -1,0 +1,1 @@
+struct Table3 end
