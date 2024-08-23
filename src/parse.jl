@@ -1,9 +1,10 @@
 # Script to parse .lis file
-using DataFrames
-using Plots
-using PrettyTables
-# function parse_cap18(path)
+# using DataFrames
+# using Plots
+# using PrettyTables
+function parse_cap18(path)
 path = "t.lis"
+
 file = readlines(path)
 num_problems = get_num_problems(file)
 problems = Problems(Vector{Problem}(undef, num_problems)) # init Problems
@@ -142,10 +143,10 @@ for problem in range(1, 1)
     # problem.tb5 = table5
     # problem.tb6 = table6
     # problem.tb7 = table7
-    global df = DataFrame(table4a.results)
+    # global df = DataFrame(table4a.results)
     
-    plot(df.dist, df.moment)
+    # plot(df.dist, df.moment)
 
 end
 
-# end
+end
