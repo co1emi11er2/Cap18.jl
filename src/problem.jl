@@ -4,14 +4,19 @@ struct Problem
     tb3::Table3
     tb4::Table4
     tb4a::Table4A
-    tb5::Table5
-    tb6::Table6
-    tb7::Table7
+    tb5ws::Table5
+    tb6ws::Table6
+    tb7ws::Table7
+    tb5lf::Table5
+    tb6lf::Table6
+    tb7lf::Table7
 end
 
 struct Problems
     prob::Vector{Problem}
 end
+
+Problems() = Problem[]
 
 function get_num_problems(file)
     current_prob = ""

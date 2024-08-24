@@ -2,151 +2,358 @@
 # using DataFrames
 # using Plots
 # using PrettyTables
-function parse_cap18(path)
-path = "t.lis"
 
-file = readlines(path)
-num_problems = get_num_problems(file)
-problems = Problems(Vector{Problem}(undef, num_problems)) # init Problems
+# project directory
+global const proj_dir = @__DIR__
+global const proj_cap18 = proj_dir * "/../t.lis"
 
-for problem in range(1, 1)
+# parsing keywords
+function parse_cap18(path=proj_cap18)
+
+    file = readlines(path)
+    num_problems = get_num_problems(file)
+    problems = Problems() # init Problems
     index = 1
-    before_table1 = true
-    in_table1 = false
-    in_table2 = false
-    in_table3 = false
-    in_table4 = false
-    in_table4a = false
-    in_table5 = false
-    in_table6 = false
-    in_table7 = false
-    table4a = Table4A()
 
-    while before_table1 && index < 1500
-        line = file[index]
-        if startswith(line, " TABLE 1")
-            before_table1 = false
-            in_table1 = true
-            continue
-        end
-        index += 1
-    end
+    for problem in range(1, num_problems)
 
-    while in_table1 && index < 1500
-        line = file[index]
-        if startswith(line, " TABLE 2")
-            table1 = Table1()
-            in_table1 = false
-            in_table2 = true
-            continue
-        end
-        index += 1
-    end
+        before_table1 = true
+        in_table1 = false
+        in_table2 = false
+        in_table3 = false
+        in_table4 = false
+        in_table4a = false
+        in_table5ws = false
+        in_table6ws = false
+        in_table7ws = false
+        in_table5lf = false
+        in_table6lf = false
+        in_table7lf = false
 
-    while in_table2 && index < 1500
-        line = file[index]
-        if startswith(line, " TABLE 3")
-            table2 = Table2()
-            in_table2 = false
-            in_table3 = true
-            continue
-        end
-        index += 1
-    end
+        # Initialize table structs
+        table1 = Table1()
+        table2 = Table2()
+        table3 = Table3()
+        table4 = Table4()
+        table4a = Table4A()
+        table5ws = Table5()
+        table6ws = Table6()
+        table7ws = Table7()
+        table5lf = Table5()
+        table6lf = Table6()
+        table7lf = Table7()
 
-    while in_table3 && index < 1500
-        line = file[index]
-        if startswith(line, " TABLE 4")
-            table3 = Table3()
-            in_table3 = false
-            in_table4 = true
-            continue
-        end
-        index += 1
-    end
-
-    while in_table4 && index < 1500
-        line = file[index]
-        if startswith(line, " TABLE 4A")
-            table4 = Table4()
-            in_table4 = false
-            in_table4a = true
-            continue
-        end
-        index += 1
-    end
-
-    while in_table4a && index < 1500
-        line = file[index]
-        if startswith(line, " TABLE 4A")
-            index += 5 # jump to start of table
+        while before_table1 && index < length(file)
             line = file[index]
-            in_table = true
-            
-            while in_table && index < 1500
-                if line == "\f"
-                    in_table = false
-                    continue
-                end
-                dl = DLResult(line)
-                push!(table4a.results, dl)
-                index += 1
-                line = file[index]
+            if startswith(line, " TABLE 1")
+                # println("in table 1")
+                before_table1 = false
+                in_table1 = true
+                continue
             end
+            index += 1
         end
 
-        if startswith(line, " TABLE 5")
-            in_table4a = false
-            in_table5 = true
-            continue
+        while in_table1 && index < length(file)
+            line = file[index]
+            if startswith(line, " TABLE 2")
+                # println("in table 2")
+                in_table1 = false
+                in_table2 = true
+                continue
+            end
+            index += 1
         end
-        index += 1
+
+        while in_table2 && index < length(file)
+            line = file[index]
+            if startswith(line, " TABLE 3")
+                # println("in table 3")
+                in_table2 = false
+                in_table3 = true
+                continue
+            end
+            index += 1
+        end
+
+        while in_table3 && index < length(file)
+            line = file[index]
+            if startswith(line, " TABLE 4")
+                # println("in table 4")
+                in_table3 = false
+                in_table4 = true
+                continue
+            end
+            index += 1
+        end
+
+        while in_table4 && index < length(file)
+            line = file[index]
+            if startswith(line, " TABLE 4.")
+                index += 8
+                line = file[index]
+                in_table = true
+
+                while in_table && index < length(file)
+                    if line == "\f"
+                        in_table = false
+                        continue
+                    end
+                    stiff_load_data = StiffnessLoadData(line)
+                    push!(table4.results, stiff_load_data)
+                    index += 1
+                    line = file[index]
+                end
+            end
+            if startswith(line, " TABLE 4A")
+                # println("in table 4A")
+                in_table4 = false
+                in_table4a = true
+                continue
+            end
+            index += 1
+        end
+
+        while in_table4a && index < length(file)
+            line = file[index]
+            if startswith(line, " TABLE 4A")
+                index += 5 # jump to start of table
+                line = file[index]
+                in_table = true
+                
+                while in_table && index < length(file)
+                    if line == "\f"
+                        in_table = false
+                        continue
+                    end
+                    dl = DLResult(line)
+                    push!(table4a.results, dl)
+                    index += 1
+                    line = file[index]
+                end
+            end
+
+            if startswith(line, " TABLE 5")
+                # println("in table 5ws")
+                in_table4a = false
+                in_table5ws = true
+                continue
+            end
+            index += 1
+        end
+
+        while in_table5ws && index < length(file) #&& file[index][42:59] == "( WORKING STRESS )"
+            line = file[index]
+            if startswith(line, " TABLE 6")
+                # println("in table 6ws")
+                in_table5ws = false
+                in_table6ws = true
+                continue
+            end
+            index += 1
+        end
+
+
+        while in_table6ws && index < length(file)  #&& file[index][42:59] == "( WORKING STRESS )"
+            line = file[index]
+            if startswith(line, " TABLE 6")
+                index += 6
+                line = file[index]
+                in_table = true
+
+                while in_table && index < length(file)
+                    if line == "\f"
+                        in_table = false
+                        continue
+                    end
+                    envelopes = Envelopes(line)
+                    push!(table6ws.results, envelopes)
+                    index += 1
+                    line = file[index]
+                end
+            end
+
+            if startswith(line, " TABLE 7")
+                # println("in table 7ws")
+                in_table6ws = false
+                in_table7ws = true
+                continue
+            end
+            index += 1
+        end
+
+        while in_table7ws && index < length(file)  #&& file[index][40:57] == "( WORKING STRESS )"
+            line = file[index]
+            if startswith(line, " TABLE 7")
+                index += 6
+                line = file[index]
+                in_table = true
+
+                while in_table && index < length(file)
+                    if line == "\f"
+                        in_table = false
+                        continue
+                    end
+                    reactions = Reactions(line)
+                    push!(table7ws.results, reactions)
+                    index += 1
+                    line = file[index]
+                end
+            end
+
+            if startswith(line, " TABLE 5")
+                in_table7ws = false
+                in_table5lf = true
+                continue
+            end
+            index += 1
+        end
+
+        while in_table5lf && index < length(file) #&& file[index][42:55] == "( LOAD FACTOR)"
+            line = file[index]
+            if startswith(line, " TABLE 6")
+                in_table5lf = false
+                in_table6lf = true
+                continue
+            end
+            index += 1
+        end
+
+        while in_table6lf && index < length(file)  #&& file[index][42:56] == "( LOAD FACTOR )"
+            line = file[index]
+            if startswith(line, " TABLE 6")
+                index += 6
+                line = file[index]
+                in_table = true
+
+                while in_table && index < length(file)
+                    if line == "\f"
+                        in_table = false
+                        continue
+                    end
+                    envelopes = Envelopes(line)
+                    push!(table6lf.results, envelopes)
+                    index += 1
+                    line = file[index]
+                end
+            end
+
+            if startswith(line, " TABLE 7")
+                in_table6lf = false
+                in_table7lf = true
+                continue
+            end
+            index += 1
+        end
+
+        while in_table7lf && index < length(file)  #&& file[index][40:54] == "( WORKING STRESS )"
+            line = file[index]
+            if startswith(line, " TABLE 7")
+                index += 6
+                line = file[index]
+                in_table = true
+
+                while in_table && index < length(file)
+                    if line == "\f"
+                        in_table = false
+                        continue
+                    end
+                    reactions = Reactions(line)
+                    push!(table7lf.results, reactions)
+                    index += 1
+                    line = file[index]
+                end
+            end
+
+            if startswith(line, " PROB   2") #TODO: FIXX!!!
+                in_table7lf = false
+                before_table1 = true
+                continue
+            end
+            index += 1
+        end
+
+        prob = Problem(
+            table1,
+            table2,
+            table3,
+            table4,
+            table4a,
+            table5ws,
+            table6ws,
+            table7ws,
+            table5lf,
+            table6lf,
+            table7lf
+        )
+        push!(problems, prob)
+
     end
+    return problems
+end
 
-    while in_table5 && index < 1500 #TODO: It repeats.. need to redo logic after table 5
-        line = file[index]
-        if startswith(line, " TABLE 6")
-            table5 = Table5()
-            in_table5 = false
-            in_table6 = true
-            continue
-        end
-        index += 1
-    end
+# function get_parse_func(line::String)
+#     if startswith(line, " TABLE 1")
+#         return parse_table1_line
+#     elseif startswith(line, " TABLE 2")
+#         return parse_table2_line
+#     elseif startswith(line, " TABLE 3")
+#         return parse_table3_line
+#     elseif startswith(line, " TABLE 4A")
+#         return parse_table4a_line
+#     elseif startswith(line, " TABLE 4")
+#         return parse_table4_line
+#     elseif startswith(line, " TABLE 5")
+#         return parse_table3_line
 
-    while in_table6 && index < 1500 #TODO: It repeats.. need to redo logic after table 6
-        line = file[index]
-        if startswith(line, " TABLE 7")
-            table6 = Table6()
-            in_table6 = false
-            in_table7 = true
-            continue
-        end
-        index += 1
-    end
 
-    while in_table7 && index < 1500 #TODO: It repeats.. need to redo logic after table 7
-        line = file[index]
-        if startswith(line, " PROB   2") #TODO: FIXX!!!
-            table6 = Table7()
-            in_table7 = false
-            continue
-        end
-        index += 1
-    end
+# function parse_cap18_2(path=proj_cap18)
+#     cap_18_output = eachline(path)
 
-    # problem.tb1 = table1
-    # problem.tb2 = table2
-    # problem.tb3 = table3
-    # problem.tb4 = table4
-    # problem.tb4a = table4a
-    # problem.tb5 = table5
-    # problem.tb6 = table6
-    # problem.tb7 = table7
-    # global df = DataFrame(table4a.results)
+#     # initialize problem variable
+#     current_prob = ""
+#     problems = Problem[]
+
+#     # initialize table 
+#     in_table = false
+
+#     tables = Dict{Symbol, Any}(
+#         :tb1 => undef,
+#         :tb2 => undef,
+#         :tb3 => undef,
+#         :tb4 => undef,
+#         :tb4a => undef,
+#         :tb5ws => undef,
+#         :tb6ws => undef,
+#         :tb7ws => undef,
+#         :tb5lf => undef,
+#         :tb6lf => undef,
+#         :tb7lf => undef,
+#     )
+
+#     for line in cap_18_output
+
+#         if startswith(line, " PROB")
+#             # check if in new problem
+#             prob = line[1:12] # potential new problem number
+#             if current_prob != prob
+#                 if current_prob != "" # skip if first problem
+#                     p = Problem(tables...) # create new problem from parsed data
+#                     push!(problems, ) # add problem to problems
+#                 end
+#                 current_prob = prob
+#             end
+#         elseif startswith(line, " TABLE") 
+#             in_table = true
+#             func = get_parse_func(line)
+#         elseif in_table
+#             obj = func(line)
+#             objs = 
+
+
+
+
+
+
     
-    # plot(df.dist, df.moment)
-
-end
-
-end
+# end
