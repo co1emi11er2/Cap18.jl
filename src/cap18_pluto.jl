@@ -53,13 +53,13 @@ md"## Table 3 - List of Stations"
 md"## Table 4 - Stiffness and Load Data"
 
 # ╔═╡ f2408547-b033-4d79-b3c7-1ae188699b6a
-p1_tb4 = DataFrame(p[1].tb4.results)
+p1_tb4 = DataFrame(p[1].tb4.results);
 
 # ╔═╡ fe650a1b-a08c-4e29-8df1-0859c474a295
 md"## Table 4A - Dead Load Results (Working Stress)"
 
 # ╔═╡ bb2a7c4d-61aa-45e5-8363-d539c5e64eed
-p1_tb4a = DataFrame(p[1].tb4a.results)
+p1_tb4a = DataFrame(p[1].tb4a.results);
 
 # ╔═╡ 621e5fd4-d6d9-469f-9584-30d3b479a7f4
 begin
@@ -99,7 +99,7 @@ md"## Table 5 - Multi-Lane Loading Summary (Working Stress)"
 md"## Table 6.  Envelopes of Maximum Values (Working Stress)"
 
 # ╔═╡ 7d62095c-8c25-4b15-bcfe-8e5847f26d0a
-p1_tb6 = DataFrame(p[1].tb6ws.results)
+p1_tb6 = DataFrame(p[1].tb6ws.results);
 
 # ╔═╡ 5ff808aa-a43f-4a28-a9a1-7734f3044caa
 begin
@@ -134,9 +134,6 @@ begin
 	end
 end
 
-# ╔═╡ 1713af6b-8920-41b2-9224-5ee64d94c49d
-
-
 # ╔═╡ 67387403-c3b1-4abb-8f39-a95fdafcd86a
 md"## Table 7.  Maximum Support Reactions (Working Stress)"
 
@@ -150,7 +147,7 @@ md"## Table 5 - Multi-Lane Loading Summary (Load Factor)"
 md"## Table 6.  Envelopes of Maximum Values (Load Factor)"
 
 # ╔═╡ 6cd85e33-9157-414f-b7c0-96c7a35d942d
-p1_tb6lf = DataFrame(p[1].tb6lf.results)
+p1_tb6lf = DataFrame(p[1].tb6lf.results);
 
 # ╔═╡ 8ecff18a-2e15-4c93-9ed2-e678ed59b77f
 begin
@@ -188,7 +185,158 @@ end
 # ╔═╡ 1afe7e12-013e-43c7-bda9-5af9b99a3bf7
 md"## Table 7.  Maximum Support Reactions (Load Factor)"
 
+# ╔═╡ a00d3ed4-72de-4281-894e-0e6546cb1c32
+md"# Problem 2"
+
+# ╔═╡ 1724ef1c-5d7f-4eda-95f0-c18f4cee98b5
+md"## Table 1 - Control Data"
+
+# ╔═╡ 910bb530-707d-4b25-9118-916f05a38739
+md"## Table 2 - Constants"
+
+# ╔═╡ 590cdae0-0d4f-40c9-8057-e2e7660c824c
+md"## Table 3 - List of Stations"
+
+# ╔═╡ e352a396-f6f8-4385-8c7a-2b3bb3cf696b
+md"## Table 4 - Stiffness and Load Data"
+
+# ╔═╡ 80f16103-4149-4627-bedc-5a68ade9081c
+p2_tb4 = DataFrame(p[2].tb4.results);
+
+# ╔═╡ a25c57ea-b481-474c-98ea-b2bd54a24a88
+md"## Table 4A - Dead Load Results (Working Stress)"
+
+# ╔═╡ ed4dbffb-3b7c-4d16-bc9d-51e916255961
+p2_tb4a = DataFrame(p[2].tb4a.results);
+
+# ╔═╡ 6683ea4b-8344-45ce-ae30-526a2ff4b94c
+begin
+	let
+	plt_1 = plot(p2_tb4a.dist, p2_tb4a.defl,
+		legend = false,
+		title = "DL Deflection",
+		label = "DL deflection",)
+
+	plt_2 = plot(p2_tb4a.dist, p2_tb4a.shear,
+		legend = false,
+		title = "DL Shear",
+		label = "DL shear",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :blue)
+	
+	plt_3 = plot(p2_tb4a.dist, p2_tb4a.moment,
+		legend = false,
+		title = "DL Moment",
+		label = "DL moment",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :blue)
+
+	plot(plt_1, plt_2, plt_3, layout = (3, 1))
+	end
+end
+
+# ╔═╡ 73e473fb-7e99-4ad5-818e-f200ee8f75e9
+md"## Table 5 - Multi-Lane Loading Summary (Working Stress)"
+
+# ╔═╡ 8a0a2e23-69da-4a74-8535-0806d6aec2c0
+md"## Table 6.  Envelopes of Maximum Values (Working Stress)"
+
+# ╔═╡ 40733b81-4e74-4c4e-ada6-362584cba988
+p2_tb6 = DataFrame(p[2].tb6ws.results);
+
+# ╔═╡ 5c569122-f058-4845-a814-cd9e95e23a79
+begin
+	let
+	plt_1 = plot(p2_tb6.dist, p2_tb6.max_moment,
+		title = "Max Moment Envelope (Working Stress)",
+		label = "+ M",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :blue)
+	
+	plot!(p2_tb6.dist, p2_tb6.min_moment,
+		label = "- M",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :red)
+
+	plt_2 = plot(p2_tb6.dist, p2_tb6.max_shear,
+		title = "Max Shear Envelope (Working Stress)",
+		label = "+ V",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :blue)
+	
+	plot!(p2_tb6.dist, p2_tb6.min_shear,
+		label = "- V",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :red)
+
+	plot(plt_2, plt_1, layout = (2, 1))
+	end
+end
+
+# ╔═╡ 608af6d4-bad8-4ad4-a49d-4ba9d3cf79f6
+md"## Table 7.  Maximum Support Reactions (Working Stress)"
+
+# ╔═╡ 2ea5393a-96f3-4957-9bc6-9dc3452439ed
+p2_tb7ws = DataFrame(p[2].tb7ws.results)
+
+# ╔═╡ 5e667ef3-8698-46aa-86c1-a26c18fab30d
+md"## Table 5 - Multi-Lane Loading Summary (Load Factor)"
+
+# ╔═╡ 5082f9d3-6065-47e1-a6e9-d8540a658c8e
+md"## Table 6.  Envelopes of Maximum Values (Load Factor)"
+
+# ╔═╡ 4ef57329-9ca1-4713-b6dd-d77033314ed6
+p2_tb6lf = DataFrame(p[2].tb6lf.results);
+
+# ╔═╡ 9c496d79-5d7d-48b9-9f95-e409c17242fa
+begin
+	let
+	plt_1 = plot(p2_tb6lf.dist, p2_tb6lf.max_moment,
+		title = "Max Moment Envelope (Working Stress)",
+		label = "+ M",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :blue)
+	
+	plot!(p2_tb6lf.dist, p2_tb6lf.min_moment,
+		label = "- M",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :red)
+
+	plt_2 = plot(p2_tb6lf.dist, p2_tb6lf.max_shear,
+		title = "Max Shear Envelope (Working Stress)",
+		label = "+ V",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :blue)
+	
+	plot!(p2_tb6lf.dist, p2_tb6lf.min_shear,
+		label = "- V",
+		fillrange = 0,
+    	fillalpha = 0.5,
+    	fillcolor = :red)
+
+	plot(plt_2, plt_1, layout = (2, 1))
+	end
+end
+
+# ╔═╡ 8a33288a-81e9-495e-a2fb-3a47d5bd0d37
+md"## Table 7.  Maximum Support Reactions (Load Factor)"
+
 # ╔═╡ c7906377-fe20-459a-a96b-f3a81902b821
+# ╠═╡ disabled = true
+#=╠═╡
+p1_tb7lf = DataFrame(p[1].tb7lf.results)
+  ╠═╡ =#
+
+# ╔═╡ 178609cb-009b-446b-848a-d1395fb0d418
 p1_tb7lf = DataFrame(p[1].tb7lf.results)
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -1399,16 +1547,15 @@ version = "1.4.1+1"
 # ╟─6d012048-6e4f-49b9-a49b-c1f8ec5e85fc
 # ╠═053f6015-a617-431d-87ba-1ab025a7e261
 # ╟─9b5f21c3-2a52-4777-adab-57df402943d8
-# ╟─f2408547-b033-4d79-b3c7-1ae188699b6a
+# ╠═f2408547-b033-4d79-b3c7-1ae188699b6a
 # ╟─fe650a1b-a08c-4e29-8df1-0859c474a295
 # ╠═bb2a7c4d-61aa-45e5-8363-d539c5e64eed
 # ╟─621e5fd4-d6d9-469f-9584-30d3b479a7f4
-# ╠═f371a5bb-fb2f-40fe-8fb9-5f421e92d5d0
+# ╟─f371a5bb-fb2f-40fe-8fb9-5f421e92d5d0
 # ╠═cd4b6979-5eb6-4afc-9a0e-96b146932494
 # ╟─667a950c-c0f1-4cd2-b065-b7273803ab61
-# ╟─7d62095c-8c25-4b15-bcfe-8e5847f26d0a
+# ╠═7d62095c-8c25-4b15-bcfe-8e5847f26d0a
 # ╟─5ff808aa-a43f-4a28-a9a1-7734f3044caa
-# ╠═1713af6b-8920-41b2-9224-5ee64d94c49d
 # ╟─67387403-c3b1-4abb-8f39-a95fdafcd86a
 # ╟─6a19f29a-c868-4997-9008-f51a4a1b32a3
 # ╟─be5d9c93-ac50-4c89-b223-b9d5f2a0812d
@@ -1416,6 +1563,27 @@ version = "1.4.1+1"
 # ╠═6cd85e33-9157-414f-b7c0-96c7a35d942d
 # ╟─8ecff18a-2e15-4c93-9ed2-e678ed59b77f
 # ╟─1afe7e12-013e-43c7-bda9-5af9b99a3bf7
-# ╟─c7906377-fe20-459a-a96b-f3a81902b821
+# ╠═c7906377-fe20-459a-a96b-f3a81902b821
+# ╟─a00d3ed4-72de-4281-894e-0e6546cb1c32
+# ╟─1724ef1c-5d7f-4eda-95f0-c18f4cee98b5
+# ╟─910bb530-707d-4b25-9118-916f05a38739
+# ╟─590cdae0-0d4f-40c9-8057-e2e7660c824c
+# ╟─e352a396-f6f8-4385-8c7a-2b3bb3cf696b
+# ╠═80f16103-4149-4627-bedc-5a68ade9081c
+# ╟─a25c57ea-b481-474c-98ea-b2bd54a24a88
+# ╠═ed4dbffb-3b7c-4d16-bc9d-51e916255961
+# ╟─6683ea4b-8344-45ce-ae30-526a2ff4b94c
+# ╟─73e473fb-7e99-4ad5-818e-f200ee8f75e9
+# ╟─8a0a2e23-69da-4a74-8535-0806d6aec2c0
+# ╠═40733b81-4e74-4c4e-ada6-362584cba988
+# ╟─5c569122-f058-4845-a814-cd9e95e23a79
+# ╠═608af6d4-bad8-4ad4-a49d-4ba9d3cf79f6
+# ╟─2ea5393a-96f3-4957-9bc6-9dc3452439ed
+# ╟─5e667ef3-8698-46aa-86c1-a26c18fab30d
+# ╟─5082f9d3-6065-47e1-a6e9-d8540a658c8e
+# ╠═4ef57329-9ca1-4713-b6dd-d77033314ed6
+# ╟─9c496d79-5d7d-48b9-9f95-e409c17242fa
+# ╠═8a33288a-81e9-495e-a2fb-3a47d5bd0d37
+# ╠═178609cb-009b-446b-848a-d1395fb0d418
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
