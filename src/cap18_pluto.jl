@@ -35,13 +35,13 @@ md"# Problem 1"
 md"## Table 1 - Control Data"
 
 # ╔═╡ a1b49550-b69d-4460-a51c-a4f52c1ba52b
-
+p[1].tb1
 
 # ╔═╡ 2d4a17ff-1bca-493a-afcf-7989f70c660b
 md"## Table 2 - Constants"
 
 # ╔═╡ 6eb90d2b-4041-4bfd-984c-dab5b91a59a4
-
+p[1].tb2
 
 # ╔═╡ 6d012048-6e4f-49b9-a49b-c1f8ec5e85fc
 md"## Table 3 - List of Stations"
@@ -191,8 +191,14 @@ md"# Problem 2"
 # ╔═╡ 1724ef1c-5d7f-4eda-95f0-c18f4cee98b5
 md"## Table 1 - Control Data"
 
+# ╔═╡ 4193d5c1-a130-4c35-877d-241a66b6cdd8
+p[2].tb1
+
 # ╔═╡ 910bb530-707d-4b25-9118-916f05a38739
 md"## Table 2 - Constants"
+
+# ╔═╡ fe7b4df3-886c-416d-8e55-f3d7a23e5fe0
+p[2].tb2
 
 # ╔═╡ 590cdae0-0d4f-40c9-8057-e2e7660c824c
 md"## Table 3 - List of Stations"
@@ -1541,9 +1547,9 @@ version = "1.4.1+1"
 # ╟─649dac4c-c164-48f5-9fb9-ca12050f15c3
 # ╟─04abb342-7283-49f6-9608-250264f99805
 # ╟─ca690775-6554-4103-983a-f6def8bfed2a
-# ╠═a1b49550-b69d-4460-a51c-a4f52c1ba52b
+# ╟─a1b49550-b69d-4460-a51c-a4f52c1ba52b
 # ╟─2d4a17ff-1bca-493a-afcf-7989f70c660b
-# ╠═6eb90d2b-4041-4bfd-984c-dab5b91a59a4
+# ╟─6eb90d2b-4041-4bfd-984c-dab5b91a59a4
 # ╟─6d012048-6e4f-49b9-a49b-c1f8ec5e85fc
 # ╠═053f6015-a617-431d-87ba-1ab025a7e261
 # ╟─9b5f21c3-2a52-4777-adab-57df402943d8
@@ -1566,7 +1572,9 @@ version = "1.4.1+1"
 # ╠═c7906377-fe20-459a-a96b-f3a81902b821
 # ╟─a00d3ed4-72de-4281-894e-0e6546cb1c32
 # ╟─1724ef1c-5d7f-4eda-95f0-c18f4cee98b5
+# ╟─4193d5c1-a130-4c35-877d-241a66b6cdd8
 # ╟─910bb530-707d-4b25-9118-916f05a38739
+# ╟─fe7b4df3-886c-416d-8e55-f3d7a23e5fe0
 # ╟─590cdae0-0d4f-40c9-8057-e2e7660c824c
 # ╟─e352a396-f6f8-4385-8c7a-2b3bb3cf696b
 # ╠═80f16103-4149-4627-bedc-5a68ade9081c

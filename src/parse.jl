@@ -31,8 +31,6 @@ function parse_cap18(path=proj_cap18)
         in_table7lf = false
 
         # Initialize table structs
-        table1 = Table1()
-        table2 = Table2()
         table3 = Table3()
         table4 = Table4()
         table4a = Table4A()
@@ -54,26 +52,24 @@ function parse_cap18(path=proj_cap18)
             index += 1
         end
 
-        while in_table1 && index < length(file)
-            line = file[index]
-            if startswith(line, " TABLE 2")
-                # println("in table 2")
-                in_table1 = false
-                in_table2 = true
-                continue
-            end
-            index += 1
-        end
+        table1, index = parse_table1(file, index)
+        in_table2 = true
 
-        while in_table2 && index < length(file)
-            line = file[index]
-            if startswith(line, " TABLE 3")
-                # println("in table 3")
-                in_table2 = false
-                in_table3 = true
-                continue
+        if table1.keep_table2_from_prev_prob == false
+            table2, index = parse_table2(file, index)
+            in_table3 = true
+        else
+            table2 = problems[problem-1].tb2
+            while in_table2 && index < length(file)
+                line = file[index]
+                if startswith(line, " TABLE 4")
+                    # println("in table 4")
+                    in_table2 = false
+                    in_table3 = true
+                    continue
+                end
+                index += 1
             end
-            index += 1
         end
 
         while in_table3 && index < length(file)
