@@ -45,7 +45,7 @@ function parse_table1(file, index)
             line = file[index]
         end
     end
-    @show inputs
+
     table1 = Table1(inputs...)
     return table1, index
 

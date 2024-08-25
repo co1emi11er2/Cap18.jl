@@ -56,7 +56,7 @@ function parse_table2(file, index)
             line = file[index]
         end
     end
-    println(inputs)
+    
     table2 = Table2(inputs...)
     return table2, index
 
