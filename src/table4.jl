@@ -46,3 +46,50 @@ struct Table4
 end
 
 Table4() = Table4(StiffnessLoadData[])
+
+function parse_table4(file, index, table1::Table1, problem, problems)
+    in_table4 = true
+    table4 = Table4()
+
+    if table1.keep_table4_from_prev_prob == true
+        table4 = problems[problem-1].tb4
+        while in_table4 && index < length(file)
+            line = file[index]
+            if startswith(line, " TABLE 4A")
+                # println("in table 4A")
+                in_table4 = false
+                in_table4a = true
+                continue
+            end
+            index +=1
+        end
+    else
+        while in_table4 && index < length(file)
+            line = file[index]
+            if startswith(line, " TABLE 4.")
+                index += 8
+                line = file[index]
+                in_table = true
+
+                while in_table && index < length(file)
+                    if line == "\f"
+                        in_table = false
+                        continue
+                    end
+                    stiff_load_data = StiffnessLoadData(line)
+                    push!(table4.results, stiff_load_data)
+                    index += 1
+                    line = file[index]
+                end
+            end
+            if startswith(line, " TABLE 4A")
+                # println("in table 4A")
+                in_table4 = false
+                continue
+            end
+            index += 1
+        end
+    end
+
+    return table4, index
+end

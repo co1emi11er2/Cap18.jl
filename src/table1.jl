@@ -11,7 +11,7 @@ Base.@kwdef struct Table1
 end
 
 function parse_table1(file, index)
-
+    
     inputs = Any[]
     line = file[index]
     if startswith(line, " TABLE 1")
@@ -45,7 +45,7 @@ function parse_table1(file, index)
             line = file[index]
         end
     end
-
+ 
     table1 = Table1(inputs...)
     return table1, index
 

@@ -4,6 +4,16 @@
 using Markdown
 using InteractiveUtils
 
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
+end
+
 # ╔═╡ 19350050-6259-11ef-08a2-45f6e65cb86d
 using PlutoDevMacros, Plots
 
@@ -16,8 +26,23 @@ PlutoUI.TableOfContents()
 # ╔═╡ c842bded-1fd1-4ce5-a3a3-b58577e54869
 @fromparent import *
 
+# ╔═╡ a0e3843e-6916-4f8d-83ea-73835e7c787b
+
+
+# ╔═╡ 4ecfdc83-d595-40f2-9421-78f02db8cfb2
+path = pwd() * "/../test/Cap18 Examples"
+
+# ╔═╡ 0928dafd-fa33-42c7-8f29-fe0edf6952dd
+begin 
+	outputs = filter(x -> endswith(x, ".lis"), readdir(path))
+	@bind chosen_output PlutoUI.Select(outputs)
+end
+
+# ╔═╡ 529c327a-fd69-4108-83e1-74ab50420f36
+full_path = path * "/" * chosen_output
+
 # ╔═╡ 4728b8bd-7ad5-4b7d-9853-b35ef7987f3a
-p = parse_cap18();
+p = parse_cap18(full_path);
 
 # ╔═╡ 649dac4c-c164-48f5-9fb9-ca12050f15c3
 html"""<style>
@@ -43,11 +68,14 @@ md"## Table 2 - Constants"
 # ╔═╡ 6eb90d2b-4041-4bfd-984c-dab5b91a59a4
 p[1].tb2
 
+# ╔═╡ fe633ae8-064b-4159-a42e-a2dd0cbe0d73
+
+
 # ╔═╡ 6d012048-6e4f-49b9-a49b-c1f8ec5e85fc
 md"## Table 3 - List of Stations"
 
 # ╔═╡ 053f6015-a617-431d-87ba-1ab025a7e261
-
+p[1].tb3
 
 # ╔═╡ 9b5f21c3-2a52-4777-adab-57df402943d8
 md"## Table 4 - Stiffness and Load Data"
@@ -184,6 +212,12 @@ end
 
 # ╔═╡ 1afe7e12-013e-43c7-bda9-5af9b99a3bf7
 md"## Table 7.  Maximum Support Reactions (Load Factor)"
+
+# ╔═╡ c7906377-fe20-459a-a96b-f3a81902b821
+# ╠═╡ disabled = true
+#=╠═╡
+p1_tb7lf = DataFrame(p[1].tb7lf.results)
+  ╠═╡ =#
 
 # ╔═╡ a00d3ed4-72de-4281-894e-0e6546cb1c32
 md"# Problem 2"
@@ -335,12 +369,6 @@ end
 
 # ╔═╡ 8a33288a-81e9-495e-a2fb-3a47d5bd0d37
 md"## Table 7.  Maximum Support Reactions (Load Factor)"
-
-# ╔═╡ c7906377-fe20-459a-a96b-f3a81902b821
-# ╠═╡ disabled = true
-#=╠═╡
-p1_tb7lf = DataFrame(p[1].tb7lf.results)
-  ╠═╡ =#
 
 # ╔═╡ 178609cb-009b-446b-848a-d1395fb0d418
 p1_tb7lf = DataFrame(p[1].tb7lf.results)
@@ -1543,15 +1571,20 @@ version = "1.4.1+1"
 # ╠═49b0d44e-fcd9-42dc-a9f5-6b467849d001
 # ╠═4a04e883-3b3a-45ee-9cc2-14dbf982ea80
 # ╠═c842bded-1fd1-4ce5-a3a3-b58577e54869
+# ╠═a0e3843e-6916-4f8d-83ea-73835e7c787b
+# ╠═4ecfdc83-d595-40f2-9421-78f02db8cfb2
+# ╠═0928dafd-fa33-42c7-8f29-fe0edf6952dd
+# ╟─529c327a-fd69-4108-83e1-74ab50420f36
 # ╠═4728b8bd-7ad5-4b7d-9853-b35ef7987f3a
-# ╟─649dac4c-c164-48f5-9fb9-ca12050f15c3
+# ╠═649dac4c-c164-48f5-9fb9-ca12050f15c3
 # ╟─04abb342-7283-49f6-9608-250264f99805
 # ╟─ca690775-6554-4103-983a-f6def8bfed2a
 # ╟─a1b49550-b69d-4460-a51c-a4f52c1ba52b
 # ╟─2d4a17ff-1bca-493a-afcf-7989f70c660b
-# ╟─6eb90d2b-4041-4bfd-984c-dab5b91a59a4
+# ╠═6eb90d2b-4041-4bfd-984c-dab5b91a59a4
+# ╠═fe633ae8-064b-4159-a42e-a2dd0cbe0d73
 # ╟─6d012048-6e4f-49b9-a49b-c1f8ec5e85fc
-# ╠═053f6015-a617-431d-87ba-1ab025a7e261
+# ╟─053f6015-a617-431d-87ba-1ab025a7e261
 # ╟─9b5f21c3-2a52-4777-adab-57df402943d8
 # ╠═f2408547-b033-4d79-b3c7-1ae188699b6a
 # ╟─fe650a1b-a08c-4e29-8df1-0859c474a295

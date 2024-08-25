@@ -1,0 +1,106 @@
+$Header Card 1 -----------------------------------------------------------------
+$File                         Proj              User  Date (Today 
+$ Num     County      Highway  Num     CSJ      Init     if Blank) Comment
+$XXXX  XXXXXXXXXXXXX  XXXXXX  XXXX  XXXX-XX-XXX  XXX  XXXXXXXXXXXX XXXXXXX     
+00001  ___County____  Highwy  Pro#  0000-00-000  BRG               Comment
+$Header Card 2 -----------------------------------------------------------------
+$XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+CAP18 Version 6.00 LRFD Example input file.  Rect Transistion Bent, Skew = 0.00
+$Problem Card ------------------------------------------------------------------
+$Prob E   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    1 E 0 Span 1 (L=100', Type IV Beam @ 8.5', 8" Slab, 2" O'lay)              
+$TABLE 1 - CONTROL DATA --------------------------------------------------------
+$                Enter 1 to keep:       Number cards   Options:
+$                 Env Tab2 Tab3 Tab4    on Table 4  Envelope  Print   Skew Angle
+$                  X    X    X    X             XX    X        XX     XXXXXXXXXX
+              0                                 15                        0.0
+$TABLE 2 - CONSTANTS -----------------------------------------------------------
+$   TABLE 2a                                              Anly Opt (1=Working,
+$                                  |-Movable Load Data--|  2=Load Factor,3=Both)
+$                Num  Increment    |Num  Start Stop Step|Anly|  Load Factors:
+$                Inc   Length      |Inc  Sta   Sta  Size| Opt| Dead     Live
+$                 XX XXXXXXXXX       XXX  XXX  XXX    X    X XXXXXXXX XXXXXXXX
+                  80    0.50          20    2   58    1    3    1.25     1.75
+$   TABLE 2b
+$    Overlay    Max #|-----------Live Load Reduction Factors---------|
+$  Load Factor  Lanes| 1 lane   2 lanes	  3 lanes   4 lanes   5 lanes  
+$    XXXXX         X  XXXX      XXXX      XXXX      XXXX      XXXX
+     1.50          3  1.2       1.0       0.85      0.65      0.65                                    
+$TABLE 3 - LIST OF STATIONS ----------------------------------------------------
+$     Number of input values for                Str - Stringers, Sup - Supports
+$                Lane Str  Sup  MCP  VCP        MCP - Moment Control Points
+$                 XX   XX   XX   XX   XX        VCP - Shear Control Points
+  (Num Inputs)     3    5    3   11    3
+$     Left Lane Boundary Stations
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  
+  (Lane Left)      2   26   54           
+$     Right Lane Boundary Stations
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  
+  (Lane Right)    26   54   78
+$     Station of Stringers (two rows max, may be at tenths of stations, XX.X)
+$               XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX  
+  (Stringers)      6   23   40   57   74
+$     Station of Supports (two rows max)
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  
+  (Supports)      10   40   70
+$     Moment Control Point Stations (two rows max)
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  
+  (Mom CP)         6   10   19   23   33   40   47   57   60   65
+  (Mom CP)        70  
+$     Shear Control Point Stations (two rows max)
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  
+  (Shear CP)       8   12   38     
+$TABLE 4 - STIFFNESS AND LOAD DATA ---------------------------------------------
+$                               Bending   Sidewalk,  Cap &              
+$                Station  1 if  Stiffness  Slab     Stringer  Moving    Overlay
+$Comments       From  To Cont'd  of Cap    Loads     Loads     Loads    Loads,DW
+$XXXXXXXXXXXXXX  XXX  XXX    X XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX
+(CAP EI & DL)      2   78      4.600E+06            -0.792
+(DL Span1, Bm1)    6    6                           -92.19              -9.92
+(DL Span1, Bm2)   23   23                           -92.19              -9.92
+(DL Span1, Bm3)   40   40                           -92.19              -9.92
+(DL Span1, Bm4)   57   57                           -92.19              -9.92
+(DL Span1, Bm5)   74   74                           -92.19              -9.92
+(DL Span2, Bm1)    6    6                           -98.62              -9.52
+(DL Span2, Bm1)   20   20                           -98.62              -9.52
+(DL Span2, Bm1)   33   33                           -98.62              -9.52
+(DL Span2, Bm1)   47   47                           -98.62              -9.52
+(DL Span2, Bm1)   60   60                           -98.62              -9.52
+(DL Span2, Bm1)   74   74                           -98.62              -9.52  
+(Dist. Lane Ld)    0   20                                     -5.86
+(Conc. Lane Ld)    4    4                                     -21.3
+(Conc. Lane Ld)   16   16                                     -21.3
+$For transistion bents, another problem is needed to envelope the loads due to
+$the moveable live load being applied through the stringers as spaced on span 2
+$Problem Card ------------------------------------------------------------------
+$Prob E   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX    
+    2 E   Span 2 (L=120', Type IV Beam @ 6.8', 8" Slab, 2" O'lay)-Hold Envp     
+$TABLE 1 - CONTROL DATA --------------------------------------------------------
+$                Enter 1 to keep:       Number cards   Options:
+$                 Env Tab2 Tab3 Tab4    on Table 4  Envelope  Print   Skew Angle
+$                  X    X    X    X             XX    X        XX     XXXXXXXXXX
+                   1    1         1                                       0.0  
+$TABLE 3 - LIST OF STATIONS ----------------------------------------------------
+$     Number of input values for                Str - Stringers, Sup - Supports
+$                Lane Str  Sup  MCP  VCP        MCP - Moment Control Points
+$                 XX   XX   XX   XX   XX        VCP - Shear Control Points
+  (Num Inputs)     3    6    3   11    3
+$     Left Lane Boundary Stations
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  
+  (Lane Left)      2   26   54  
+$     Right Lane Boundary Stations
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX           
+  (Lane Right)    26   54   78
+$     Station of Stringers (two rows max, may be at tenths of stations, XX.X)
+$               XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX  
+  (Stringers)      6   20   33   47   60   74
+$     Station of Supports (two rows max)
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX
+  (Supports)      10   40   70
+$     Moment Control Point Stations (two rows max)
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  
+  (Mom CP)         6   10   19   23   33   40   47   57   60   65
+  (Mom CP)        70  
+$     Shear Control Point Stations (two rows max)
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  
+  (Shear CP)       8   12   38    

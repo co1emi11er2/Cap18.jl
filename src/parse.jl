@@ -31,8 +31,6 @@ function parse_cap18(path=proj_cap18)
         in_table7lf = false
 
         # Initialize table structs
-        table3 = Table3()
-        table4 = Table4()
         table4a = Table4A()
         table5ws = Table5()
         table6ws = Table6()
@@ -58,11 +56,11 @@ function parse_cap18(path=proj_cap18)
         if table1.keep_table2_from_prev_prob == false
             table2, index = parse_table2(file, index)
             in_table3 = true
-        else
+        else # otherwise use previous Table2 and iterate until Table 3
             table2 = problems[problem-1].tb2
             while in_table2 && index < length(file)
                 line = file[index]
-                if startswith(line, " TABLE 4")
+                if startswith(line, " TABLE 3")
                     # println("in table 4")
                     in_table2 = false
                     in_table3 = true
@@ -72,43 +70,25 @@ function parse_cap18(path=proj_cap18)
             end
         end
 
-        while in_table3 && index < length(file)
-            line = file[index]
-            if startswith(line, " TABLE 4")
-                # println("in table 4")
-                in_table3 = false
-                in_table4 = true
-                continue
-            end
-            index += 1
-        end
-
-        while in_table4 && index < length(file)
-            line = file[index]
-            if startswith(line, " TABLE 4.")
-                index += 8
+        if table1.keep_table3_from_prev_prob == false
+            table3, index = parse_table3(file, index)
+            in_table4 = true
+        else # otherwise use previous Table3 and iterate until Table 4
+            table3 = problems[problem-1].tb3
+            while in_table3 && index < length(file)
                 line = file[index]
-                in_table = true
-
-                while in_table && index < length(file)
-                    if line == "\f"
-                        in_table = false
-                        continue
-                    end
-                    stiff_load_data = StiffnessLoadData(line)
-                    push!(table4.results, stiff_load_data)
-                    index += 1
-                    line = file[index]
+                if startswith(line, " TABLE 4")
+                    # println("in table 4")
+                    in_table3 = false
+                    in_table4 = true
+                    continue
                 end
+                index += 1
             end
-            if startswith(line, " TABLE 4A")
-                # println("in table 4A")
-                in_table4 = false
-                in_table4a = true
-                continue
-            end
-            index += 1
         end
+
+        table4, index = parse_table4(file, index, table1, problem, problems)
+        in_table4a = true
 
         while in_table4a && index < length(file)
             line = file[index]
@@ -261,7 +241,7 @@ function parse_cap18(path=proj_cap18)
                 end
             end
 
-            if startswith(line, " PROB   2") #TODO: FIXX!!!
+            if startswith(line, " PROB") #TODO: FIXX!!!
                 in_table7lf = false
                 before_table1 = true
                 continue
@@ -283,7 +263,7 @@ function parse_cap18(path=proj_cap18)
             table7lf
         )
         push!(problems, prob)
-
+        
     end
     return problems
 end

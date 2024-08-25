@@ -1,4 +1,4 @@
-struct Table2 
+Base.@kwdef struct Table2 
     num_increments_slab::Int
     increment_length::Float64
     num_total_increments_moving::Int
