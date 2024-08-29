@@ -5,7 +5,7 @@
 
 # project directory
 global const proj_dir = @__DIR__
-global const proj_cap18 = proj_dir * "/../t.lis"
+global const proj_cap18 = proj_dir * "/../data/t.lis"
 
 # parsing keywords
 function parse_cap18(path=proj_cap18)
