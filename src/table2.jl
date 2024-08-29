@@ -1,4 +1,4 @@
-Base.@kwdef struct Table2 
+Base.@kwdef struct Table2
     num_increments_slab::Int
     increment_length::Float64
     num_total_increments_moving::Int
@@ -13,11 +13,23 @@ Base.@kwdef struct Table2
     mult_presence_factor::Vector{Float64}
 end
 
-function parse_table2(file, index)
-
+function parse_table2(file, index, table1::Table1, problem, problems)
+    in_table2 = true
     inputs = Any[]
     line = file[index]
-    if startswith(line, " TABLE 2")
+    if table1.keep_table2_from_prev_prob == true
+        table2 = problems[problem-1].tb2
+        while in_table2 && index < length(file)
+            line = file[index]
+            if startswith(line, " TABLE 3")
+                # println("in table 4A")
+                in_table2 = false
+                in_table3 = true
+                return table2, index
+            end
+            index += 1
+        end
+    else
         index += 1
         line = file[index]
         in_table = true
@@ -56,7 +68,7 @@ function parse_table2(file, index)
             line = file[index]
         end
     end
-    
+
     table2 = Table2(inputs...)
     return table2, index
 
