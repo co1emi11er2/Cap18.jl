@@ -12,11 +12,24 @@ Base.@kwdef struct Table3
     sta_shear_points::Vector{Float64}
 end
 
-function parse_table3(file, index)
-
+function parse_table3(file, index, table1::Table1, problem, problems)
+    in_table3 = true
     inputs = Any[]
     line = file[index]
-    if startswith(line, " TABLE 3")
+
+    if table1.keep_table3_from_prev_prob == true
+        table3 = problems[problem-1].tb3
+        while in_table3 && index < length(file)
+            line = file[index]
+            if startswith(line, " TABLE 3")
+                # println("in table 4A")
+                in_table3 = false
+                in_table4 = true
+                return table3, index
+            end
+            index += 1
+        end
+    else
         index += 1
         line = file[index]
         in_table = true

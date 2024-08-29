@@ -53,39 +53,11 @@ function parse_cap18(path=proj_cap18)
         table1, index = parse_table1(file, index)
         in_table2 = true
 
-        if table1.keep_table2_from_prev_prob == false
-            table2, index = parse_table2(file, index)
-            in_table3 = true
-        else # otherwise use previous Table2 and iterate until Table 3
-            table2 = problems[problem-1].tb2
-            while in_table2 && index < length(file)
-                line = file[index]
-                if startswith(line, " TABLE 3")
-                    # println("in table 4")
-                    in_table2 = false
-                    in_table3 = true
-                    continue
-                end
-                index += 1
-            end
-        end
+        table2, index = parse_table2(file, index, table1, problem, problems)
+        in_table3 = true
 
-        if table1.keep_table3_from_prev_prob == false
-            table3, index = parse_table3(file, index)
-            in_table4 = true
-        else # otherwise use previous Table3 and iterate until Table 4
-            table3 = problems[problem-1].tb3
-            while in_table3 && index < length(file)
-                line = file[index]
-                if startswith(line, " TABLE 4")
-                    # println("in table 4")
-                    in_table3 = false
-                    in_table4 = true
-                    continue
-                end
-                index += 1
-            end
-        end
+        table3, index = parse_table3(file, index, table1, problem, problems)
+        in_table4 = true
 
         table4, index = parse_table4(file, index, table1, problem, problems)
         in_table4a = true
@@ -96,7 +68,7 @@ function parse_cap18(path=proj_cap18)
                 index += 5 # jump to start of table
                 line = file[index]
                 in_table = true
-                
+
                 while in_table && index < length(file)
                     if line == "\f"
                         in_table = false
@@ -263,73 +235,7 @@ function parse_cap18(path=proj_cap18)
             table7lf
         )
         push!(problems, prob)
-        
+
     end
     return problems
 end
-
-# function get_parse_func(line::String)
-#     if startswith(line, " TABLE 1")
-#         return parse_table1_line
-#     elseif startswith(line, " TABLE 2")
-#         return parse_table2_line
-#     elseif startswith(line, " TABLE 3")
-#         return parse_table3_line
-#     elseif startswith(line, " TABLE 4A")
-#         return parse_table4a_line
-#     elseif startswith(line, " TABLE 4")
-#         return parse_table4_line
-#     elseif startswith(line, " TABLE 5")
-#         return parse_table3_line
-
-
-# function parse_cap18_2(path=proj_cap18)
-#     cap_18_output = eachline(path)
-
-#     # initialize problem variable
-#     current_prob = ""
-#     problems = Problem[]
-
-#     # initialize table 
-#     in_table = false
-
-#     tables = Dict{Symbol, Any}(
-#         :tb1 => undef,
-#         :tb2 => undef,
-#         :tb3 => undef,
-#         :tb4 => undef,
-#         :tb4a => undef,
-#         :tb5ws => undef,
-#         :tb6ws => undef,
-#         :tb7ws => undef,
-#         :tb5lf => undef,
-#         :tb6lf => undef,
-#         :tb7lf => undef,
-#     )
-
-#     for line in cap_18_output
-
-#         if startswith(line, " PROB")
-#             # check if in new problem
-#             prob = line[1:12] # potential new problem number
-#             if current_prob != prob
-#                 if current_prob != "" # skip if first problem
-#                     p = Problem(tables...) # create new problem from parsed data
-#                     push!(problems, ) # add problem to problems
-#                 end
-#                 current_prob = prob
-#             end
-#         elseif startswith(line, " TABLE") 
-#             in_table = true
-#             func = get_parse_func(line)
-#         elseif in_table
-#             obj = func(line)
-#             objs = 
-
-
-
-
-
-
-    
-# end
