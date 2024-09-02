@@ -18,14 +18,14 @@ end
 
 function write_header1(h1::Header1)
     lengths = Dict(
-        :file_num => (1, 5),
-        :county => (8, 20),
-        :hwy_num => (23, 28),
-        :proj_num => (31, 34),
-        :csj => (37, 47),
-        :coded_by => (50, 52),
-        :date => (55, 66),
-        :comment => (68, 74),
+        :file_num_5 => (1, 5),
+        :county_13 => (8, 20),
+        :hwy_num_6 => (23, 28),
+        :proj_num_4 => (31, 34),
+        :csj_11 => (37, 47),
+        :coded_by_3 => (50, 52),
+        :date_12 => (55, 66),
+        :comment_7 => (68, 74),
     )
 
     hdr_txt = lpad("", 74)
@@ -33,7 +33,7 @@ function write_header1(h1::Header1)
         start_index = lengths[field][1]
         end_index = lengths[field][2]
         n = end_index - start_index + 1
-        txt = lpad(string(getproperty(h1, field)), n)
+        txt = lpad(string(getproperty(h1, field)), n)[1:n]
         hdr_txt = change_string_by_slicing(hdr_txt, start_index, end_index, txt)
         # if field == :file_num
         #     txt = txt * lpad(h1.field, n)
