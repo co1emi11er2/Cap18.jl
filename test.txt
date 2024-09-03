@@ -1,0 +1,5 @@
+$Header Card 1 -----------------------------------------------------------------
+$File                         Proj              User  Date (Today 
+$ Num     County      Highway  Num     CSJ      Init     if Blank) Comment
+$XXXX  XXXXXXXXXXXXX  XXXXXX  XXXX  XXXX-XX-XXX  XXX  XXXXXXXXXXXX XXXXXXX     
+00001  ___County____  Highwy  Proj  0000-00-000  BRG               Comment

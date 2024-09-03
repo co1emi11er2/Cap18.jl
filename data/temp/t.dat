@@ -1,0 +1,11 @@
+$Header Card 1 -----------------------------------------------------------------
+$File                         Proj              User  Date (Today 
+$ Num     County      Highway  Num     CSJ      Init     if Blank) Comment
+$XXXX  XXXXXXXXXXXXX  XXXXXX  XXXX  XXXX-XX-XXX  XXX  XXXXXXXXXXXX XXXXXXX     
+00001  ___County____  Highwy  Pro#  0000-00-000  BRG               Comment
+$Header Card 2 -----------------------------------------------------------------
+$XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX  
+                                                      Bent Cap Analysis For XXXX
+$Problem Card ------------------------------------------------------------------
+$Prob E   XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX   
+    1 E                                                 problem description

@@ -3,12 +3,10 @@
 # using Plots
 # using PrettyTables
 
-# project directory
-global const proj_dir = @__DIR__
-global const proj_cap18 = proj_dir * "/../data/t.lis"
+global const cap18_dir = proj_dir * "/../data/t.lis"
 
 # parsing keywords
-function parse_cap18(path=proj_cap18)
+function parse_cap18(path=cap18_dir)
 
     file = readlines(path)
     num_problems = get_num_problems(file)

@@ -1,0 +1,1 @@
+global const input_data_dir = proj_dir * "/../data/temp/t.dat"

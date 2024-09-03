@@ -12,7 +12,20 @@
 # """
 module Cap18
 
+export Header1, Header2, ProblemCard
 export DLResult, Table4A, parse_cap18
+
+
+# project directory
+global const proj_dir = @__DIR__
+
+# Input
+include("Input/input.jl")
+include("Input/utils.jl")
+include("Input/header1.jl")
+include("Input/header2.jl")
+include("Input/problemcard.jl")
+
 
 # Tables
 include("table1.jl")

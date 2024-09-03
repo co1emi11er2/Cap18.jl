@@ -3,6 +3,10 @@ using TestItems, TestItemRunner
 if isdefined(@__MODULE__,:LanguageServer)
     include("../src/Cap18.jl")
 end
+
+@testitem "Input-utils.jl" begin
+    include("Input/utils.jl")
+end
 @testitem "Table4A" begin
     include("table4a.jl")
 end
