@@ -1,3 +1,21 @@
+const tb2_desc_a = raw"""
+
+$TABLE 2 - CONSTANTS -----------------------------------------------------------
+$   TABLE 2a                                              Anly Opt (1=Working,
+$                                  |-Movable Load Data--|  2=Load Factor,3=Both)
+$                Num  Increment    |Num  Start Stop Step|Anly|  Load Factors:
+$                Inc   Length      |Inc  Sta   Sta  Size| Opt| Dead     Live
+$                 XX XXXXXXXXX       XXX  XXX  XXX    X    X XXXXXXXX XXXXXXXX 
+"""
+
+const tb2_desc_b = raw"""
+
+$   TABLE 2b
+$    Overlay    Max #|-----------Live Load Reduction Factors---------|
+$  Load Factor  Lanes| 1 lane   2 lanes	  3 lanes   4 lanes   5 lanes  
+$    XXXXX         X      XXXX      XXXX      XXXX      XXXX      XXXX
+"""
+
 Base.@kwdef struct Table2
     num_increments_slab::Int
     increment_length::Float64
@@ -71,5 +89,62 @@ function parse_table2(file, index, table1::Table1, problem, problems)
 
     table2 = Table2(inputs...)
     return table2, index
+
+end
+
+
+function Base.write(tb2::Table2, path=input_data_dir, hdr1_desc=hdr1_desc)
+    # header 1 input length info. See cap18 user guide
+    input_info_a = Dict(
+        :num_increments_slab => (18, 20),
+        :increment_length => (22, 30),
+        :num_total_increments_moving => (38, 40),
+        :mov_start_sta => (42, 45),
+        :mov_end_sta => (48, 50),
+        :num_btwn_increments_moving => (55, 55),
+        :analysis_option => (60, 60),
+        :dl_factor => (62, 69),
+        :ll_factor => (71, 78),
+    )
+
+    # (x, y, z) x and y are the start and end of position in the line of the .dat file
+    # z is the number of inputs available in the x,y range
+    # :mult_presence_factor is a vector, so z specifies how to separate the range in `z`
+    # equal spaces
+    input_info_b = Dict(
+        :overlay_factor => (6, 10),
+        :max_lanes_loaded => (20, 20),
+        :mult_presence_factor => (21, 70, 5),
+    )
+
+    # Part a
+    # get input line for cap 18 .dat file
+    line_txt = get_input_line(tb2, input_info_a, 78)
+
+    # write to cap18 input file table 1 description
+    open(path, "a") do io
+        write(io, tb2_desc_a)
+    end
+
+    # write cap18 input line for table 1
+    open(path, "a") do io
+        write(io, line_txt)
+    end
+
+    # Part b
+    # get input line for cap 18 .dat file
+    line_txt = get_input_line(tb2, input_info_b, 70)
+
+    # write to cap18 input file table 1 description
+    open(path, "a") do io
+        write(io, tb2_desc_b)
+    end
+
+    # write cap18 input line for table 1
+    open(path, "a") do io
+        write(io, line_txt)
+    end
+
+
 
 end
