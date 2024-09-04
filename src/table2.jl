@@ -93,7 +93,7 @@ function parse_table2(file, index, table1::Table1, problem, problems)
 end
 
 
-function Base.write(tb2::Table2, path=input_data_dir, hdr1_desc=hdr1_desc)
+function Base.write(tb2::Table2, path=input_data_dir, tb2_desc_a=tb2_desc_a, tb2_desc_b=tb2_desc_b)
     # header 1 input length info. See cap18 user guide
     input_info_a = Dict(
         :num_increments_slab => (18, 20),
@@ -123,12 +123,7 @@ function Base.write(tb2::Table2, path=input_data_dir, hdr1_desc=hdr1_desc)
 
     # write to cap18 input file table 1 description
     open(path, "a") do io
-        write(io, tb2_desc_a)
-    end
-
-    # write cap18 input line for table 1
-    open(path, "a") do io
-        write(io, line_txt)
+        write(io, tb2_desc_a, line_txt)
     end
 
     # Part b
@@ -137,14 +132,7 @@ function Base.write(tb2::Table2, path=input_data_dir, hdr1_desc=hdr1_desc)
 
     # write to cap18 input file table 1 description
     open(path, "a") do io
-        write(io, tb2_desc_b)
+        write(io, tb2_desc_b, line_txt)
     end
-
-    # write cap18 input line for table 1
-    open(path, "a") do io
-        write(io, line_txt)
-    end
-
-
 
 end

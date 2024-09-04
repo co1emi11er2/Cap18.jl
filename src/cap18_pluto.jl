@@ -81,7 +81,10 @@ p[1].tb3
 md"## Table 4 - Stiffness and Load Data"
 
 # ╔═╡ f2408547-b033-4d79-b3c7-1ae188699b6a
-p1_tb4 = DataFrame(p[1].tb4.results);
+p1_tb4 = DataFrame(p[1].tb4.data);
+
+# ╔═╡ 766e2d15-9c5d-497c-aab4-bec528f7d7bc
+@show p[1].tb4.data
 
 # ╔═╡ fe650a1b-a08c-4e29-8df1-0859c474a295
 md"## Table 4A - Dead Load Results (Working Stress)"
@@ -241,7 +244,7 @@ md"## Table 3 - List of Stations"
 md"## Table 4 - Stiffness and Load Data"
 
 # ╔═╡ 80f16103-4149-4627-bedc-5a68ade9081c
-p2_tb4 = DataFrame(p[2].tb4.results);
+p2_tb4 = DataFrame(p[2].tb4.data);
 
 # ╔═╡ a25c57ea-b481-474c-98ea-b2bd54a24a88
 md"## Table 4A - Dead Load Results (Working Stress)"
@@ -1587,6 +1590,7 @@ version = "1.4.1+1"
 # ╟─053f6015-a617-431d-87ba-1ab025a7e261
 # ╟─9b5f21c3-2a52-4777-adab-57df402943d8
 # ╠═f2408547-b033-4d79-b3c7-1ae188699b6a
+# ╠═766e2d15-9c5d-497c-aab4-bec528f7d7bc
 # ╟─fe650a1b-a08c-4e29-8df1-0859c474a295
 # ╠═bb2a7c4d-61aa-45e5-8363-d539c5e64eed
 # ╟─621e5fd4-d6d9-469f-9584-30d3b479a7f4

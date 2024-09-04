@@ -18,6 +18,7 @@ to the cap through the stringers.
 - `movable_position_slab_loads::Float64` - movable loads
 """
 Base.@kwdef struct StiffnessLoadData
+    comment::String = ""
     sta_from::Int
     sta_to::Int
     contd::Int
@@ -41,8 +42,41 @@ function StiffnessLoadData(line::String)
     )
 end
 
+function Base.write(sld::StiffnessLoadData, path=input_data_dir)
+    # Stiffness Load Data input length info. See cap18 user guide
+    input_info = Dict(
+        :comment => (1, 15),
+        :sta_from => (18, 20),
+        :sta_to => (23, 25),
+        :contd => (30, 30),
+        :cap_bending_stiffness => (31, 40),
+        :sidewalk_slab_loads => (41, 50),
+        :stringer_cap_loads => (51, 60),
+        :overlay_loads => (61, 70),
+        :movable_position_slab_loads => (71, 80),
+    )
+
+    # get input line for cap 18 .dat file
+    line_txt = get_input_line(sld, input_info, 80)
+
+    # write to cap18 input file table 1 description
+    open(path, "a") do io
+        write(io, line_txt, "\n")
+    end
+
+end 
+
+const tb4_desc = raw"""
+
+$TABLE 4 - STIFFNESS AND LOAD DATA ---------------------------------------------
+$                               Bending   Sidewalk,  Cap &              
+$                Station  1 if  Stiffness  Slab     Stringer  Moving    Overlay
+$Comments       From  To Cont'd  of Cap    Loads     Loads     Loads    Loads,DW
+$XXXXXXXXXXXXXX  XXX  XXX    X XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX
+"""
+
 struct Table4
-    results::Vector{StiffnessLoadData}
+    data::Vector{StiffnessLoadData}
 end
 
 Table4() = Table4(StiffnessLoadData[])
@@ -77,7 +111,7 @@ function parse_table4(file, index, table1::Table1, problem, problems)
                         continue
                     end
                     stiff_load_data = StiffnessLoadData(line)
-                    push!(table4.results, stiff_load_data)
+                    push!(table4.data, stiff_load_data)
                     index += 1
                     line = file[index]
                 end
@@ -93,3 +127,16 @@ function parse_table4(file, index, table1::Table1, problem, problems)
 
     return table4, index
 end
+
+function Base.write(tb4::Table4, path=input_data_dir)
+    # write Table 4 description
+    open(path, "a") do io
+        write(io, tb4_desc)
+    end
+
+
+    for data in tb4.data
+        write(data, path)
+    end
+
+end 

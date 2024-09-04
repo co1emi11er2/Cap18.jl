@@ -26,3 +26,47 @@ $    Overlay    Max #|-----------Live Load Reduction Factors---------|
 $  Load Factor  Lanes| 1 lane   2 lanes	  3 lanes   4 lanes   5 lanes  
 $    XXXXX         X      XXXX      XXXX      XXXX      XXXX      XXXX
        1.5         3       1.2       1.0      0.85      0.65      0.65
+$TABLE 3 - LIST OF STATIONS ----------------------------------------------------
+$     Number of input values for                Str - Stringers, Sup - Supports
+$                Lane Str  Sup  MCP  VCP        MCP - Moment Control Points
+$                 XX   XX   XX   XX   XX        VCP - Shear Control Points
+                   3    5    3   11    3
+$     Left Lane Boundary Stations
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  
+                   2   26   54                                   
+$     Right Lane Boundary Stations
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX
+                  26   54   78                                   
+$     Station of Stringers (two rows max, may be at tenths of stations, XX.X)
+$               XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX
+                 6.0 23.0 40.0 57.0 74.0                         
+$     Station of Supports (two rows max)
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX 
+                  10   40   70                                   
+$     Moment Control Point Stations (two rows max)
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX
+                   6   10   19   23   33   40   47   57   60   65
+                  70                                             
+$     Shear Control Point Stations (two rows max)
+$                XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX  XXX
+                   8   12   38                                   
+$TABLE 4 - STIFFNESS AND LOAD DATA ---------------------------------------------
+$                               Bending   Sidewalk,  Cap &              
+$                Station  1 if  Stiffness  Slab     Stringer  Moving    Overlay
+$Comments       From  To Cont'd  of Cap    Loads     Loads     Loads    Loads,DW
+$XXXXXXXXXXXXXX  XXX  XXX    X XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX XXXXXXXXX
+  (CAP EI & DL)    2   78    0     4.6e6       0.0    -0.792       0.0       0.0
+(DL Span1, Bm1)    6    6    0       0.0       0.0    -92.19     -9.92       0.0
+(DL Span1, Bm2)   23   23    0       0.0       0.0    -92.19     -9.92       0.0
+(DL Span1, Bm3)   40   40    0       0.0       0.0    -92.19     -9.92       0.0
+(DL Span1, Bm4)   57   57    0       0.0       0.0    -92.19     -9.92       0.0
+(DL Span1, Bm5)   74   74    0       0.0       0.0    -92.19     -9.92       0.0
+(DL Span5, Bm1)    6    6    0       0.0       0.0    -98.62     -9.52       0.0
+(DL Span5, Bm2)   20   20    0       0.0       0.0    -98.62     -9.52       0.0
+(DL Span5, Bm3)   33   33    0       0.0       0.0    -98.62     -9.52       0.0
+(DL Span5, Bm4)   47   47    0       0.0       0.0    -98.62     -9.52       0.0
+(DL Span5, Bm5)   60   60    0       0.0       0.0    -98.62     -9.52       0.0
+(DL Span5, Bm6)   74   74    0       0.0       0.0    -98.62     -9.52       0.0
+(Dist. Lane Ld)    0   20    0       0.0       0.0       0.0       0.0     -5.86
+(Conc. Lane Ld)    4    4    0       0.0       0.0       0.0       0.0     -21.3
+(Conc. Lane Ld)   16   16    0       0.0       0.0       0.0       0.0     -21.3

@@ -59,7 +59,7 @@ function parse_table1(file, index)
 
 end
 
-function Base.write(tb1::Table1, path=input_data_dir, hdr1_desc=hdr1_desc)
+function Base.write(tb1::Table1, path=input_data_dir, tb1_desc=tb1_desc)
     # header 1 input length info. See cap18 user guide
     input_info = Dict(
         :srs_option => (14, 15),

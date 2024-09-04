@@ -12,7 +12,7 @@
 # """
 module Cap18
 
-export Header1, Header2, ProblemCard, Table1, Table2, Table3, Table4
+export Header1, Header2, ProblemCard, Table1, Table2, Table3, Table4, StiffnessLoadData
 export DLResult, Table4A, parse_cap18
 
 

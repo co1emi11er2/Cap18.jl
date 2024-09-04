@@ -41,10 +41,6 @@ Parses an object type to a string type. For a boolean type, it parses as 1 or 0.
 """
 parse_to_string(x) = string(x)
 parse_to_string(x::Bool) = string(convert(Int, x))
-# parse_to_string(x, n) = string(x)
-# parse_to_string(x::Bool) = string(convert(Int, x))
-
-# function parse_to_string(x, n)
 
 
 """
@@ -89,49 +85,46 @@ function parse_input(field, index_info::Tuple{Int64, Int64}, line_txt)
     return line_txt
 end
 
-function parse_input(field::Vector, index_info::Tuple{Int64, Int64, Int64}, line_txt)
+function parse_input(field::Vector, index_info::Tuple{Int64, Int64, Int64}, begin_line_txt)
+
+    # determine interval for each entry in line
     start_index = index_info[1]
     end_index = index_info[2]
     txt_range = (end_index + 1) - start_index
     n_entries = index_info[3]
     interval::Int = txt_range/n_entries
 
-    for value in field
-        end_index = start_index + interval - 1
+    # line can't fit all values in field, see how many lines are needed
+    n_lines::Int = ceil(length(field)/n_entries)
+    final_txt = "" # init final text that will be returned
+    start_field_index = 1
 
-        txt = parse_to_string(value)
-        line_txt = change_string_by_slicing(line_txt, start_index, end_index, txt)
+    # loop over each line for field value inputs
+    for i = range(1, n_lines)
+        # init field_piece to parse into line string
+        end_field_index = min(length(field), i*n_entries)
+        field_piece = field[start_field_index: end_field_index]
 
-        start_index += interval
+        # reinit start and end index and line_txt
+        start_index = index_info[1]
+        end_index = index_info[2]
+        line_txt = begin_line_txt
+
+        # parse input into new line string
+        for value in field_piece
+            end_index = start_index + interval - 1
+
+            txt = parse_to_string(value)
+            line_txt = change_string_by_slicing(line_txt, start_index, end_index, txt)
+
+            start_index += interval
+        end
+
+        # if i = 1 do not add a new line
+        final_txt *= i==1 ? line_txt : "\n" * line_txt
+        start_field_index += n_entries
     end
 
-    return line_txt
+
+    return final_txt
 end
-
-# function get_input_line(
-#     x::T, 
-#     input_info::Dict{Symbol, Tuple{Int64, Int64, Int64}}, 
-#     n::Int) where T
-
-#     # Init blank string of correct size
-#     line_txt = lpad("", n)
-
-#     # replace parts of string for fields
-#     for key in keys(input_info)
-#         if input_info[key][3] == 1
-#             start_index = input_info[key][1]
-#             end_index = input_info[key][2]
-#             txt = parse_to_string(getproperty(x, key))
-#             line_txt = change_string_by_slicing(line_txt, start_index, end_index, txt)
-#         else
-#             start_index = input_info[key][1]
-#             end_index = input_info[key][2]
-#             n_entries = input_info[key][3]
-
-#         end
-#         end
-
-#     return line_txt
-
-# end
-
