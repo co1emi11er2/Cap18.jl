@@ -3,7 +3,7 @@
 # using Plots
 # using PrettyTables
 
-global const cap18_dir = proj_dir * "/../data/t.lis"
+global const cap18_dir = proj_dir * "/../data/temp/t.lis"
 
 # parsing keywords
 function parse_cap18(path=cap18_dir)

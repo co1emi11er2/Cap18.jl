@@ -5,6 +5,30 @@ $ Num     County      Highway  Num     CSJ      Init     if Blank) Comment
 $XXXX  XXXXXXXXXXXXX  XXXXXX  XXXX  XXXX-XX-XXX  XXX  XXXXXXXXXXXX XXXXXXX     
 """
 
+"""
+    struct Header1
+
+Contains project information needed to run Cap18. 
+
+# Fields
+- `file_num_5::String = "00001"` - file number for the project (5 slots available)  
+- `county_13::String = "___County____"` - county for the project (13 slots available)  
+- `hwy_num_6::String = "Highwy"` - highway number for the project (6 slots available)  
+- `proj_num_4::String = "Pro#"` - project number (4 slots available)  
+- `csj_11::String = "0000-00-000"` - CSJ for the project (11 slots available)  
+- `coded_by_3::String = "BRG"` - Initials of originator (3 slots available)  
+- `date_12::String = ""` - date (12 slots available)  
+- `comment_7::String = "Comment"` - additional comment (7 slots available)  
+
+# Examples
+```julia
+julia> h1 = Header1()
+Header1("00001", "___County____", "Highwy", "Pro#", "0000-00-000", "BRG", "", "Comment")
+
+julia> write(h1) # this writes header info to the .dat file
+ 
+```
+"""
 Base.@kwdef struct Header1
     file_num_5::String = "00001"
     county_13::String = "___County____"

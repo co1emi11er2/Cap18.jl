@@ -1,6 +1,8 @@
 import Cap18: parse_cap18, Table1, Table2, Table3
 
-p = parse_cap18()
+dir = @__DIR__
+path = dir * "/../test/t.lis"
+p = parse_cap18(path)
 
 # Check Problem 1, Table 1
 expected_table1 = Table1(

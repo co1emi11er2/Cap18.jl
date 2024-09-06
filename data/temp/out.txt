@@ -1,0 +1,26 @@
+
+          ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+          บ       Texas Department of Transportation (TxDOT)       บ
+          บ                                                        บ
+          บ    CCCCCC    AAAAAAA   PPPPPPPP       111   8888888    บ
+          บ   CCC   CC  AAA   AAA  PPP   PPP     1111  888   888   บ
+          บ   CCC       AAA   AAA  PPP   PPP    11111  888   888   บ
+          บ   CCC       AAAAAAAAA  PPPPPPPP       111   8888888    บ
+          บ   CCC       AAA   AAA  PPP            111  888   888   บ
+          บ   CCC   CC  AAA   AAA  PPP            111  888   888   บ
+          บ    CCCCCC   AAA   AAA  PPP            111   8888888    บ
+          บ                                                        บ
+          บ   A Computer Program to Analyze Bending of Bent Caps   บ
+          บ                                                        บ
+          บ   Version 6.2                                          บ
+          ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+
+ Current Drive and Path = C:\Users\CMILLER\.julia\dev\Cap18\data\temp\
+ Located file C:\Users\CMILLER\.julia\dev\Cap18\data\temp\t.dat
+
+ Processing input file ...
+
+ Processing is completed.
+ Input File  = C:\Users\CMILLER\.julia\dev\Cap18\data\temp\t.dat
+ Output File = C:\Users\CMILLER\.julia\dev\Cap18\data\temp\t.lis

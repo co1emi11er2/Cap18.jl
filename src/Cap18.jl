@@ -13,34 +13,33 @@
 module Cap18
 
 export Header1, Header2, ProblemCard, Table1, Table2, Table3, Table4, StiffnessLoadData
+export run_cap18
 export DLResult, Table4A, parse_cap18
 
 
 # project directory
 global const proj_dir = @__DIR__
+global const input_data_dir = proj_dir * "/../data/temp/t.dat"
 
 # Input
-include("Input/input.jl")
 include("Input/utils.jl")
 include("Input/header1.jl")
 include("Input/header2.jl")
 include("Input/problemcard.jl")
+include("Input/table1.jl")
+include("Input/table2.jl")
+include("Input/table3.jl")
+include("Input/table4.jl")
+include("Input/run.jl")
 
 
-# Tables
-include("table1.jl")
-include("table2.jl")
-include("table3.jl")
-include("table4.jl")
-include("table4a.jl")
-include("table5.jl")
-include("table6.jl")
-include("table7.jl")
+# Parse
+include("Parse/table4a.jl")
+include("Parse/table5.jl")
+include("Parse/table6.jl")
+include("Parse/table7.jl")
+include("Parse/problem.jl")
+include("Parse/parse.jl")
 
-# Problem
-include("problem.jl")
-
-# parse
-include("parse.jl")
 
 end
