@@ -12,6 +12,8 @@
 # """
 module Cap18
 
+using RecipesBase
+
 export Header1, Header2, ProblemCard, Table1, Table2, Table3, Table4, StiffnessLoadData
 export run_cap18
 export DLResult, Table4A, parse_cap18
@@ -41,5 +43,9 @@ include("Parse/table7.jl")
 include("Parse/problem.jl")
 include("Parse/parse.jl")
 
+# Analyze
+include("Analyze/Deflections.jl")
+include("Analyze/Moments.jl")
+include("Analyze/Shears.jl")
 
 end

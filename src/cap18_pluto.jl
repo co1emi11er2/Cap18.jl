@@ -92,28 +92,16 @@ p1_tb4a = DataFrame(p[1].tb4a.results);
 # ╔═╡ 621e5fd4-d6d9-469f-9584-30d3b479a7f4
 begin
 	let
-	plt_1 = plot(p1_tb4a.dist, p1_tb4a.defl,
-		legend = false,
-		title = "DL Deflection",
-		label = "DL deflection",)
+	d = deflections(p[1].tb4a)
+	m = moments(p[1].tb4a)
+	s = shears(p[1].tb4a)
 
-	plt_2 = plot(p1_tb4a.dist, p1_tb4a.shear,
-		legend = false,
-		title = "DL Shear",
-		label = "DL shear",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plt_3 = plot(p1_tb4a.dist, p1_tb4a.moment,
-		legend = false,
-		title = "DL Moment",
-		label = "DL moment",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-
-	plot(plt_1, plt_2, plt_3, layout = (3, 1))
+	plot(
+		plot(d, title = "DL Deflections"),
+		plot(s, title = "DL Shear"),
+		plot(m, title = "DL Moment"),
+		layout = (3, 1)
+	)
 	end
 end
 
