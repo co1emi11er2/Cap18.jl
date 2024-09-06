@@ -33,7 +33,7 @@ end
 
 function parse_table2(file, index, table1::Table1, problem, problems)
     in_table2 = true
-    inputs = Any[]
+    inputs = Dict()
     line = file[index]
     if table1.keep_table2_from_prev_prob == true
         table2 = problems[problem-1].tb2
@@ -53,31 +53,42 @@ function parse_table2(file, index, table1::Table1, problem, problems)
         in_table = true
         while in_table && index < length(file)
             if startswith(strip(line), "NUMBER OF INCREMENTS FOR SLAB AND CAP")
-                push!(inputs, parse(Int, line[60:end]))
-            elseif startswith(strip(line), "INCREMENT LENGTH, FT")
-                push!(inputs, parse(Float64, line[60:end]))
+                # push!(inputs, parse(Int, line[60:end]))
+                inputs[:num_increments_slab] = parse(Int, line[60:end])
+            elseif startswith(strip(line), "INCREMENT LENGTH")
+                # push!(inputs, parse(Float64, line[60:end]))
+                inputs[:increment_length] = parse(Float64, line[60:end])
             elseif startswith(strip(line), "NUMBER OF INCREMENTS FOR MOVABLE LOAD")
-                push!(inputs, parse(Int, line[60:end]))
+                # push!(inputs, parse(Int, line[60:end]))
+                inputs[:num_total_increments_moving] = parse(Int, line[60:end])
             elseif startswith(strip(line), "START POSITION OF MOVABLE-LOAD STA ZERO")
-                push!(inputs, parse(Int, line[60:end]))
+                # push!(inputs, parse(Int, line[60:end]))
+                inputs[:mov_start_sta] = parse(Int, line[60:end])
             elseif startswith(strip(line), "STOP POSITION OF MOVABLE-LOAD STA ZERO")
-                push!(inputs, parse(Int, line[60:end]))
+                # push!(inputs, parse(Int, line[60:end]))
+                inputs[:mov_end_sta] = parse(Int, line[60:end])
             elseif startswith(strip(line), "NUMBER OF INCREMENTS BETWEEN EACH POSITION")
-                push!(inputs, parse(Int, line[65:end]))
+                # push!(inputs, parse(Int, line[65:end]))
+                inputs[:num_btwn_increments_moving] = parse(Int, line[65:end])
             elseif startswith(strip(line), "ANALYSIS OPTION")
-                push!(inputs, parse(Int, line[65:end]))
+                # push!(inputs, parse(Int, line[65:end]))
+                inputs[:analysis_option] = parse(Int, line[65:end])
             elseif startswith(strip(line), "LOAD FACTOR FOR DEAD LOAD")
-                push!(inputs, parse(Float64, line[60:end]))
+                # push!(inputs, parse(Float64, line[60:end]))
+                inputs[:dl_factor] = parse(Float64, line[60:end])
             elseif startswith(strip(line), "LOAD FACTOR FOR OVERLAY LOAD")
-                push!(inputs, parse(Float64, line[60:end]))
+                # push!(inputs, parse(Float64, line[60:end]))
+                inputs[:overlay_factor] = parse(Float64, line[60:end])
             elseif startswith(strip(line), "LOAD FACTOR FOR LIVE LOAD")
-                push!(inputs, parse(Float64, line[60:end]))
+                # push!(inputs, parse(Float64, line[60:end]))
+                inputs[:ll_factor] = parse(Float64, line[60:end])
             elseif startswith(strip(line), "MAXIMUM NUMBER OF LANES TO BE LOADED")
-                push!(inputs, parse(Int, line[60:end]))
+                # push!(inputs, parse(Int, line[60:end]))
+                inputs[:max_lanes_loaded] = parse(Int, line[60:end])
             elseif startswith(strip(line), "LIST OF LOAD COEFFICIENTS CORRESPONDING")
                 index += 2
                 line = file[index]
-                push!(inputs, parse.(Float64, split(strip(line), r"\s+")))
+                inputs[:mult_presence_factor] = parse.(Float64, split(strip(line), r"\s+"))
             elseif startswith(strip(line), "TABLE 3")
                 in_table = false
                 continue
@@ -87,7 +98,11 @@ function parse_table2(file, index, table1::Table1, problem, problems)
         end
     end
 
-    table2 = Table2(inputs...)
+    # make sure load factors are initialized
+    get!(inputs, :dl_factor, 1.0) 
+    get!(inputs, :overlay_factor, inputs[:dl_factor]) 
+    get!(inputs, :ll_factor, inputs[:dl_factor]) 
+    table2 = Table2(;inputs...)
     return table2, index
 
 end
