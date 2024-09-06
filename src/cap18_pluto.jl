@@ -89,6 +89,9 @@ md"## Table 4A - Dead Load Results (Working Stress)"
 # ╔═╡ bb2a7c4d-61aa-45e5-8363-d539c5e64eed
 p1_tb4a = DataFrame(p[1].tb4a.results);
 
+# ╔═╡ c7bb8e6e-64fd-4cd6-b4ea-15883b9ce5ce
+gr()
+
 # ╔═╡ 621e5fd4-d6d9-469f-9584-30d3b479a7f4
 begin
 	let
@@ -102,6 +105,9 @@ begin
 		plot(m, title = "DL Moment"),
 		layout = (3, 1)
 	)
+
+		# plot(m)
+		# plot!(s, fillcolor=:red)
 	end
 end
 
@@ -1577,7 +1583,8 @@ version = "1.4.1+1"
 # ╠═f2408547-b033-4d79-b3c7-1ae188699b6a
 # ╟─fe650a1b-a08c-4e29-8df1-0859c474a295
 # ╠═bb2a7c4d-61aa-45e5-8363-d539c5e64eed
-# ╟─621e5fd4-d6d9-469f-9584-30d3b479a7f4
+# ╠═c7bb8e6e-64fd-4cd6-b4ea-15883b9ce5ce
+# ╠═621e5fd4-d6d9-469f-9584-30d3b479a7f4
 # ╟─f371a5bb-fb2f-40fe-8fb9-5f421e92d5d0
 # ╠═cd4b6979-5eb6-4afc-9a0e-96b146932494
 # ╟─667a950c-c0f1-4cd2-b065-b7273803ab61
