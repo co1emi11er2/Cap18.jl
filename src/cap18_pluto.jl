@@ -43,7 +43,7 @@ end
 full_path = path * "/" * chosen_output
 
 # ╔═╡ 4728b8bd-7ad5-4b7d-9853-b35ef7987f3a
-p = parse_cap18(full_path);
+p = parse_cap18(full_path)
 
 # ╔═╡ 649dac4c-c164-48f5-9fb9-ca12050f15c3
 html"""<style>
@@ -1474,6 +1474,7 @@ version = "1.4.1+1"
 """
 
 # ╔═╡ Cell order:
+# ╟─649dac4c-c164-48f5-9fb9-ca12050f15c3
 # ╠═19350050-6259-11ef-08a2-45f6e65cb86d
 # ╠═49b0d44e-fcd9-42dc-a9f5-6b467849d001
 # ╠═4a04e883-3b3a-45ee-9cc2-14dbf982ea80
@@ -1483,7 +1484,6 @@ version = "1.4.1+1"
 # ╠═0928dafd-fa33-42c7-8f29-fe0edf6952dd
 # ╟─529c327a-fd69-4108-83e1-74ab50420f36
 # ╠═4728b8bd-7ad5-4b7d-9853-b35ef7987f3a
-# ╠═649dac4c-c164-48f5-9fb9-ca12050f15c3
 # ╟─04abb342-7283-49f6-9608-250264f99805
 # ╟─ca690775-6554-4103-983a-f6def8bfed2a
 # ╟─a1b49550-b69d-4460-a51c-a4f52c1ba52b

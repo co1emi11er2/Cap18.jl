@@ -14,9 +14,15 @@ module Cap18
 
 using RecipesBase
 
+# export input structs
 export Header1, Header2, ProblemCard, Table1, Table2, Table3, Table4, StiffnessLoadData
 export run_cap18
-export DLResult, Table4A, parse_cap18
+
+# export parsed structs
+export parse_cap18
+
+# export analysis portion
+export deflections, moments, shears, moment_envelopes, shear_envelopes
 
 
 # project directory
