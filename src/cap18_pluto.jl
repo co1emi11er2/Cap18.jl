@@ -24,6 +24,7 @@ using PlutoUI, DataFrames, PrettyTables
 PlutoUI.TableOfContents()
 
 # ╔═╡ c842bded-1fd1-4ce5-a3a3-b58577e54869
+# ╠═╡ show_logs = false
 @fromparent import *
 
 # ╔═╡ a0e3843e-6916-4f8d-83ea-73835e7c787b
@@ -67,9 +68,6 @@ md"## Table 2 - Constants"
 
 # ╔═╡ 6eb90d2b-4041-4bfd-984c-dab5b91a59a4
 p[1].tb2
-
-# ╔═╡ fe633ae8-064b-4159-a42e-a2dd0cbe0d73
-
 
 # ╔═╡ 6d012048-6e4f-49b9-a49b-c1f8ec5e85fc
 md"## Table 3 - List of Stations"
@@ -126,33 +124,14 @@ p1_tb6 = DataFrame(p[1].tb6ws.results);
 # ╔═╡ 5ff808aa-a43f-4a28-a9a1-7734f3044caa
 begin
 	let
-	plt_1 = plot(p1_tb6.dist, p1_tb6.max_moment,
-		title = "Max Moment Envelope (Working Stress)",
-		label = "+ M",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plot!(p1_tb6.dist, p1_tb6.min_moment,
-		label = "- M",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :red)
+	me = moment_envelopes(p[1].tb6ws)
+	se = shear_envelopes(p[1].tb6ws)
 
-	plt_2 = plot(p1_tb6.dist, p1_tb6.max_shear,
-		title = "Max Shear Envelope (Working Stress)",
-		label = "+ V",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plot!(p1_tb6.dist, p1_tb6.min_shear,
-		label = "- V",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :red)
-
-	plot(plt_2, plt_1, layout = (2, 1))
+	plot(
+		plot(se, title="Max Shear Envelope (Working Stress)"),
+		plot(me, title="Max Moment Envelope (Working Stress)"), 
+		layout = (2, 1)
+	)
 	end
 end
 
@@ -174,33 +153,14 @@ p1_tb6lf = DataFrame(p[1].tb6lf.results);
 # ╔═╡ 8ecff18a-2e15-4c93-9ed2-e678ed59b77f
 begin
 	let
-	plt_1 = plot(p1_tb6lf.dist, p1_tb6lf.max_moment,
-		title = "Max Moment Envelope (Working Stress)",
-		label = "+ M",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plot!(p1_tb6lf.dist, p1_tb6lf.min_moment,
-		label = "- M",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :red)
+	me = moment_envelopes(p[1].tb6lf)
+	se = shear_envelopes(p[1].tb6lf)
 
-	plt_2 = plot(p1_tb6lf.dist, p1_tb6lf.max_shear,
-		title = "Max Shear Envelope (Working Stress)",
-		label = "+ V",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plot!(p1_tb6lf.dist, p1_tb6lf.min_shear,
-		label = "- V",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :red)
-
-	plot(plt_2, plt_1, layout = (2, 1))
+	plot(
+		plot(se, title="Max Shear Envelope (Working Stress)"),
+		plot(me, title="Max Moment Envelope (Working Stress)"), 
+		layout = (2, 1)
+	)
 	end
 end
 
@@ -246,28 +206,19 @@ p2_tb4a = DataFrame(p[2].tb4a.results);
 # ╔═╡ 6683ea4b-8344-45ce-ae30-526a2ff4b94c
 begin
 	let
-	plt_1 = plot(p2_tb4a.dist, p2_tb4a.defl,
-		legend = false,
-		title = "DL Deflection",
-		label = "DL deflection",)
+	d = deflections(p[2].tb4a)
+	m = moments(p[2].tb4a)
+	s = shears(p[2].tb4a)
 
-	plt_2 = plot(p2_tb4a.dist, p2_tb4a.shear,
-		legend = false,
-		title = "DL Shear",
-		label = "DL shear",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plt_3 = plot(p2_tb4a.dist, p2_tb4a.moment,
-		legend = false,
-		title = "DL Moment",
-		label = "DL moment",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
+	plot(
+		plot(d, title = "DL Deflections"),
+		plot(s, title = "DL Shear"),
+		plot(m, title = "DL Moment"),
+		layout = (3, 1)
+	)
 
-	plot(plt_1, plt_2, plt_3, layout = (3, 1))
+		# plot(m)
+		# plot!(s, fillcolor=:red)
 	end
 end
 
@@ -283,33 +234,14 @@ p2_tb6 = DataFrame(p[2].tb6ws.results);
 # ╔═╡ 5c569122-f058-4845-a814-cd9e95e23a79
 begin
 	let
-	plt_1 = plot(p2_tb6.dist, p2_tb6.max_moment,
-		title = "Max Moment Envelope (Working Stress)",
-		label = "+ M",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plot!(p2_tb6.dist, p2_tb6.min_moment,
-		label = "- M",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :red)
+	me = moment_envelopes(p[2].tb6ws)
+	se = shear_envelopes(p[2].tb6ws)
 
-	plt_2 = plot(p2_tb6.dist, p2_tb6.max_shear,
-		title = "Max Shear Envelope (Working Stress)",
-		label = "+ V",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plot!(p2_tb6.dist, p2_tb6.min_shear,
-		label = "- V",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :red)
-
-	plot(plt_2, plt_1, layout = (2, 1))
+	plot(
+		plot(se, title="Max Shear Envelope (Working Stress)"),
+		plot(me, title="Max Moment Envelope (Working Stress)"), 
+		layout = (2, 1)
+	)
 	end
 end
 
@@ -331,33 +263,14 @@ p2_tb6lf = DataFrame(p[2].tb6lf.results);
 # ╔═╡ 9c496d79-5d7d-48b9-9f95-e409c17242fa
 begin
 	let
-	plt_1 = plot(p2_tb6lf.dist, p2_tb6lf.max_moment,
-		title = "Max Moment Envelope (Working Stress)",
-		label = "+ M",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plot!(p2_tb6lf.dist, p2_tb6lf.min_moment,
-		label = "- M",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :red)
+	me = moment_envelopes(p[2].tb6lf)
+	se = shear_envelopes(p[2].tb6lf)
 
-	plt_2 = plot(p2_tb6lf.dist, p2_tb6lf.max_shear,
-		title = "Max Shear Envelope (Working Stress)",
-		label = "+ V",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :blue)
-	
-	plot!(p2_tb6lf.dist, p2_tb6lf.min_shear,
-		label = "- V",
-		fillrange = 0,
-    	fillalpha = 0.5,
-    	fillcolor = :red)
-
-	plot(plt_2, plt_1, layout = (2, 1))
+	plot(
+		plot(se, title="Max Shear Envelope (Working Stress)"),
+		plot(me, title="Max Moment Envelope (Working Stress)"), 
+		layout = (2, 1)
+	)
 	end
 end
 
@@ -1576,7 +1489,6 @@ version = "1.4.1+1"
 # ╟─a1b49550-b69d-4460-a51c-a4f52c1ba52b
 # ╟─2d4a17ff-1bca-493a-afcf-7989f70c660b
 # ╠═6eb90d2b-4041-4bfd-984c-dab5b91a59a4
-# ╠═fe633ae8-064b-4159-a42e-a2dd0cbe0d73
 # ╟─6d012048-6e4f-49b9-a49b-c1f8ec5e85fc
 # ╟─053f6015-a617-431d-87ba-1ab025a7e261
 # ╟─9b5f21c3-2a52-4777-adab-57df402943d8
@@ -1584,7 +1496,7 @@ version = "1.4.1+1"
 # ╟─fe650a1b-a08c-4e29-8df1-0859c474a295
 # ╠═bb2a7c4d-61aa-45e5-8363-d539c5e64eed
 # ╠═c7bb8e6e-64fd-4cd6-b4ea-15883b9ce5ce
-# ╠═621e5fd4-d6d9-469f-9584-30d3b479a7f4
+# ╟─621e5fd4-d6d9-469f-9584-30d3b479a7f4
 # ╟─f371a5bb-fb2f-40fe-8fb9-5f421e92d5d0
 # ╠═cd4b6979-5eb6-4afc-9a0e-96b146932494
 # ╟─667a950c-c0f1-4cd2-b065-b7273803ab61
