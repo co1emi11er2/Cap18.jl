@@ -20,6 +20,15 @@ using PlutoDevMacros, Plots
 # ╔═╡ 49b0d44e-fcd9-42dc-a9f5-6b467849d001
 using PlutoUI, DataFrames, PrettyTables
 
+# ╔═╡ 649dac4c-c164-48f5-9fb9-ca12050f15c3
+html"""<style>
+main {
+    max-width: 900px;
+    align-self: flex-start;
+    margin-left: 50px;
+}
+"""
+
 # ╔═╡ 4a04e883-3b3a-45ee-9cc2-14dbf982ea80
 PlutoUI.TableOfContents()
 
@@ -31,7 +40,7 @@ PlutoUI.TableOfContents()
 
 
 # ╔═╡ 4ecfdc83-d595-40f2-9421-78f02db8cfb2
-path = pwd() * "/../test/Cap18 Examples"
+path = pwd() * "/../test/Cap18 Examples";
 
 # ╔═╡ 0928dafd-fa33-42c7-8f29-fe0edf6952dd
 begin 
@@ -40,19 +49,10 @@ begin
 end
 
 # ╔═╡ 529c327a-fd69-4108-83e1-74ab50420f36
-full_path = path * "/" * chosen_output
+full_path = path * "/" * chosen_output;
 
 # ╔═╡ 4728b8bd-7ad5-4b7d-9853-b35ef7987f3a
 p = parse_cap18(full_path)
-
-# ╔═╡ 649dac4c-c164-48f5-9fb9-ca12050f15c3
-html"""<style>
-main {
-    max-width: 900px;
-    align-self: flex-start;
-    margin-left: 50px;
-}
-"""
 
 # ╔═╡ 04abb342-7283-49f6-9608-250264f99805
 md"# Problem 1"
@@ -1480,8 +1480,8 @@ version = "1.4.1+1"
 # ╠═4a04e883-3b3a-45ee-9cc2-14dbf982ea80
 # ╠═c842bded-1fd1-4ce5-a3a3-b58577e54869
 # ╠═a0e3843e-6916-4f8d-83ea-73835e7c787b
-# ╠═4ecfdc83-d595-40f2-9421-78f02db8cfb2
-# ╠═0928dafd-fa33-42c7-8f29-fe0edf6952dd
+# ╟─4ecfdc83-d595-40f2-9421-78f02db8cfb2
+# ╟─0928dafd-fa33-42c7-8f29-fe0edf6952dd
 # ╟─529c327a-fd69-4108-83e1-74ab50420f36
 # ╠═4728b8bd-7ad5-4b7d-9853-b35ef7987f3a
 # ╟─04abb342-7283-49f6-9608-250264f99805
