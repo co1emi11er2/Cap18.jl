@@ -1,15 +1,15 @@
 struct Deflections
-    dist::Vector{Float64}
-    defl::Vector{Float64}
+    dist::Vector{float_ft}
+    defl::Vector{float_ft}
 end
 
 function deflections(tb4a::Table4A)
-    dist = Float64[]
-    defl = Float64[]
+    dist = float_ft[]
+    defl = float_ft[]
 
     for result in tb4a.results
-        push!(dist, result.dist)
-        push!(defl, result.defl)
+        push!(dist, result.dist*ft)
+        push!(defl, result.defl*ft)
     end
 
     return Deflections(dist, defl)

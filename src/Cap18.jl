@@ -13,6 +13,7 @@
 module Cap18
 
 using RecipesBase
+using StructuralUnits
 
 # export input structs
 export Header1, Header2, ProblemCard, Table1, Table2, Table3, Table4, StiffnessLoadData
@@ -28,6 +29,11 @@ export deflections, moments, shears, moment_envelopes, shear_envelopes
 # project directory
 global const proj_dir = @__DIR__
 global const input_data_dir = proj_dir * "/../data/temp/t.dat"
+
+# Constant Units
+const float_ft = typeof(1.0ft)
+const float_kip = typeof(1.0kip)
+const float_kip_ft = typeof(1.0ft * 1.0kip)
 
 # Input
 include("Input/utils.jl")

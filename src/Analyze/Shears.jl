@@ -1,39 +1,39 @@
 struct Shears
-    dist::Vector{Float64}
-    shear::Vector{Float64}
+    dist::Vector{float_ft}
+    shear::Vector{float_kip}
 end
 
 function shears(tb4a::Table4A)
-    dist = Float64[]
-    shears = Float64[]
+    dist = float_ft[]
+    shears = float_kip[]
 
     for result in tb4a.results
-        push!(dist, result.dist)
-        push!(shears, result.shear)
+        push!(dist, result.dist*ft)
+        push!(shears, result.shear*kip)
     end
 
     return Shears(dist, shears)
 end
 
 function max_shears(tb6::Table6)
-    dist = Float64[]
-    shears = Float64[]
+    dist = float_ft[]
+    shears = float_kip[]
 
     for result in tb6.results
-        push!(dist, result.dist)
-        push!(shears, result.max_shear)
+        push!(dist, result.dist*ft)
+        push!(shears, result.max_shear*kip)
     end
 
     return Shears(dist, shears)
 end    
 
 function min_shears(tb6::Table6)
-    dist = Float64[]
-    shears = Float64[]
+    dist = float_ft[]
+    shears = float_kip[]
 
     for result in tb6.results
-        push!(dist, result.dist)
-        push!(shears, result.min_shear)
+        push!(dist, result.dist*ft)
+        push!(shears, result.min_shear*kip)
     end
 
     return Shears(dist, shears)
@@ -52,20 +52,20 @@ end
 end
 
 struct ShearEnvelopes
-    dist::Vector{Float64}
-    max_shear::Vector{Float64}
-    min_shear::Vector{Float64}
+    dist::Vector{float_ft}
+    max_shear::Vector{float_kip}
+    min_shear::Vector{float_kip}
 end
 
 function shear_envelopes(tb6::Table6)
-    dist = Float64[]
-    max_shears = Float64[]
-    min_shears = Float64[]
+    dist = float_ft[]
+    max_shears = float_kip[]
+    min_shears = float_kip[]
 
     for result in tb6.results
-        push!(dist, result.dist)
-        push!(max_shears, result.max_shear)
-        push!(min_shears, result.min_shear)
+        push!(dist, result.dist*ft)
+        push!(max_shears, result.max_shear*kip)
+        push!(min_shears, result.min_shear*kip)
     end
 
     return ShearEnvelopes(dist, max_shears, min_shears)

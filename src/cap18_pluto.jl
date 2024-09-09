@@ -49,7 +49,7 @@ begin
 end
 
 # ╔═╡ 529c327a-fd69-4108-83e1-74ab50420f36
-full_path = path * "/" * chosen_output;
+full_path = path * "/" * chosen_output
 
 # ╔═╡ 4728b8bd-7ad5-4b7d-9853-b35ef7987f3a
 p = parse_cap18(full_path)
@@ -1482,7 +1482,7 @@ version = "1.4.1+1"
 # ╠═a0e3843e-6916-4f8d-83ea-73835e7c787b
 # ╟─4ecfdc83-d595-40f2-9421-78f02db8cfb2
 # ╟─0928dafd-fa33-42c7-8f29-fe0edf6952dd
-# ╟─529c327a-fd69-4108-83e1-74ab50420f36
+# ╠═529c327a-fd69-4108-83e1-74ab50420f36
 # ╠═4728b8bd-7ad5-4b7d-9853-b35ef7987f3a
 # ╟─04abb342-7283-49f6-9608-250264f99805
 # ╟─ca690775-6554-4103-983a-f6def8bfed2a
@@ -1501,7 +1501,7 @@ version = "1.4.1+1"
 # ╠═cd4b6979-5eb6-4afc-9a0e-96b146932494
 # ╟─667a950c-c0f1-4cd2-b065-b7273803ab61
 # ╠═7d62095c-8c25-4b15-bcfe-8e5847f26d0a
-# ╟─5ff808aa-a43f-4a28-a9a1-7734f3044caa
+# ╠═5ff808aa-a43f-4a28-a9a1-7734f3044caa
 # ╟─67387403-c3b1-4abb-8f39-a95fdafcd86a
 # ╟─6a19f29a-c868-4997-9008-f51a4a1b32a3
 # ╟─be5d9c93-ac50-4c89-b223-b9d5f2a0812d

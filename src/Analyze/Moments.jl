@@ -1,39 +1,39 @@
 struct Moments
-    dist::Vector{Float64}
-    moments::Vector{Float64}
+    dist::Vector{float_ft}
+    moments::Vector{float_kip_ft}
 end
 
 function moments(tb4a::Table4A)
-    dist = Float64[]
-    moments = Float64[]
+    dist = float_ft[]
+    moments = float_kip_ft[]
 
     for result in tb4a.results
-        push!(dist, result.dist)
-        push!(moments, result.moment)
+        push!(dist, result.dist*ft)
+        push!(moments, result.moment*ft*kip)
     end
 
     return Moments(dist, moments)
 end
 
 function max_moments(tb6::Table6)
-    dist = Float64[]
-    moments = Float64[]
+    dist = float_ft[]
+    moments = float_kip_ft[]
 
     for result in tb6.results
-        push!(dist, result.dist)
-        push!(moments, result.max_moment)
+        push!(dist, result.dist*ft)
+        push!(moments, result.max_moment*ft*kip)
     end
 
     return Moments(dist, moments)
 end
 
 function min_moments(tb6::Table6)
-    dist = Float64[]
-    moments = Float64[]
+    dist = float_ft[]
+    moments = float_kip_ft[]
 
     for result in tb6.results
-        push!(dist, result.dist)
-        push!(moments, result.min_moment)
+        push!(dist, result.dist*ft)
+        push!(moments, result.min_moment*ft*kip)
     end
 
     return Moments(dist, moments)
@@ -52,20 +52,20 @@ end
 end
 
 struct MomentEnvelopes
-    dist::Vector{Float64}
-    max_moment::Vector{Float64}
-    min_moment::Vector{Float64}
+    dist::Vector{float_ft}
+    max_moment::Vector{float_kip_ft}
+    min_moment::Vector{float_kip_ft}
 end
 
 function moment_envelopes(tb6::Table6)
-    dist = Float64[]
-    max_moments = Float64[]
-    min_moments = Float64[]
+    dist = float_ft[]
+    max_moments = float_kip_ft[]
+    min_moments = float_kip_ft[]
 
     for result in tb6.results
-        push!(dist, result.dist)
-        push!(max_moments, result.max_moment)
-        push!(min_moments, result.min_moment)
+        push!(dist, result.dist*ft)
+        push!(max_moments, result.max_moment*ft*kip)
+        push!(min_moments, result.min_moment*ft*kip)
     end
 
     return MomentEnvelopes(dist, max_moments, min_moments)
