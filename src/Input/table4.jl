@@ -19,8 +19,8 @@ to the cap through the stringers.
 """
 Base.@kwdef struct StiffnessLoadData
     comment::String = ""
-    sta_from::Int
-    sta_to::Int
+    sta_from::Union{Nothing, Int}
+    sta_to::Union{Nothing, Int}
     contd::Int
     cap_bending_stiffness::Float64
     sidewalk_slab_loads::Float64
@@ -30,9 +30,11 @@ Base.@kwdef struct StiffnessLoadData
 end
 
 function StiffnessLoadData(line::String)
+    l_from = lstrip(line[1:10])
+    l_to = lstrip(line[11:15])
     StiffnessLoadData(
-        sta_from=parse(Int, line[1:10]),
-        sta_to=parse(Int, line[11:15]),
+        sta_from= l_from == "" ? nothing : parse(Int, l_from),
+        sta_to= l_to == "" ? nothing : parse(Int, l_to),
         contd=parse(Int, line[16:20]),
         cap_bending_stiffness=parse(Float64, line[21:35]),
         sidewalk_slab_loads=parse(Float64, line[36:46]),
