@@ -7,4 +7,6 @@
 [![Coverage](https://codecov.io/gh/co1emi11er2/Cap18.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/co1emi11er2/Cap18.jl)
 [![Coverage](https://coveralls.io/repos/github/co1emi11er2/Cap18.jl/badge.svg?branch=main)](https://coveralls.io/github/co1emi11er2/Cap18.jl?branch=main)
 
-Cap18 is a proprietary software of TxDOT. You are responsible for obtaining a license and following TxDOT guidlines. This package is only meant to help write the `.dat` files that will be passed into the Cap18 program. This package will also parse the resulting `.lis` file that Cap18 returns. 
+Cap18 is a proprietary software of TxDOT. You are responsible for obtaining a license and following TxDOT guidlines. This package is only meant to help write the `.dat` files that will be passed into the Cap18 program. This package will also parse the resulting `.lis` file that Cap18 returns.
+
+Tutorials coming soon.
