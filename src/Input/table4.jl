@@ -11,7 +11,7 @@ to the cap through the stringers.
 - `sta_from::Int` - starting station
 - `sta_to::Int` - ending station
 - `contd::Int` - 
-- `cap_bending_stiffness::Float64` - bending stiffness of the cap
+- `cap_bending_stiffness::Float64` - bending stiffness of the cap (kip*ft^2)
 - `sidewalk_slab_loads::Float64` - sidewalk load (transmitted through stringers)
 - `stringer_cap_loads::Float64` - stringer loads
 - `overlay_loads::Float64` - overlay loads
