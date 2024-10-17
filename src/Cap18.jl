@@ -23,6 +23,7 @@ export parse_cap18
 
 # export analysis portion
 export deflections, moments, shears, moment_envelopes, shear_envelopes
+export max_moments, min_moments, max_shears, min_shears
 
 
 # project directory
