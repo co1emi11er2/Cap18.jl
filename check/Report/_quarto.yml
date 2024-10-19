@@ -1,0 +1,32 @@
+project:
+  type: book
+
+book:
+  title: "Cap 18 Validation"
+  author: "Cole Miller"
+  date: "10/18/2024"
+  chapters:
+    - index.qmd
+    - 01_cap18 intro.qmd
+    - 02_four_col_bent.qmd
+    - 03_six_col_bent.qmd
+    - references.qmd
+
+execute:
+  echo: false
+  cache: true
+
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    html-math-method: katex
+    embed-resources: true
+    self-contained-math: true
+  pdf:
+    documentclass: scrreprt
+
+
+

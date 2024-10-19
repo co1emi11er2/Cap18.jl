@@ -1,0 +1,23 @@
+{
+  "index.qmd": {
+    "index.html": "ed2d7f86"
+  },
+  "intro.qmd": {
+    "intro.html": "d9ecec74"
+  },
+  "summary.qmd": {
+    "summary.html": "a11a7771"
+  },
+  "references.qmd": {
+    "references.html": "43268eed"
+  },
+  "02_four_col_bent.qmd": {
+    "02_four_col_bent.html": "4516d934"
+  },
+  "01_cap18 intro.qmd": {
+    "01_cap18 intro.html": "0012bed0"
+  },
+  "03_six_col_bent.qmd": {
+    "03_six_col_bent.html": "4eb56c3e"
+  }
+}

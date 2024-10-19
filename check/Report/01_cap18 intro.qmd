@@ -1,0 +1,112 @@
+# Cap18 Validation Summary
+
+Cap18 is a TxDOT specialized structural analysis program using a discrete element model that produces envelopes of maximum bending and shear forces acting on bridge bent caps. HDR uses this software heavily in the bent design process, so validation of this tool is necessary. Since there is no access to the underlying code, validation must be approached differently compared to internal tools. This document will attempt to provide an outline for the process of validating the Cap18 program.
+
+## Cap18 Inputs
+
+This next section will get into the details of what the Cap18 program is. It will try to stay concise. However, there are many inputs to the program, and it is important to list out all of them in order to determine the amount of options available. 
+
+The Cap18 program allows the user to provide a number of different inputs. These inputs are provided to the program through a "\*.dat" file. This input file is simply a text file that the program can parse and then execute. The file has a specific format that is separated by different "cards".  There are 4 different types of cards.
+- Comment Cards
+- Header Cards
+- Problem Cards
+- Table Cards
+The specific order of these cards allows the program to know the current card as it steps through each line. Each card is a single line in the input file that contains multiple inputs the program can read. The multiple inputs are separated by the position on the line (ie the first input will be a certain range of characters in the beginning of the line). An input does not have to fill the entire range of characters for that specific input. This range allowance for each input will not be checked directly. Although with the different bents, there will be enough disparity among the inputs to that some level of checking will be done indirectly. A summary of the cards and their list of inputs will now be discussed in more detail to determine the brevity of the check that is needed.
+
+### Comment Cards
+
+Comment cards begin with a dollar sign ($) and these lines are for the users own documentation purposes. These cards are ignored by the Cap18 program. No checking is needed here.
+
+### Header Cards
+
+Header cards are sort of comment cards, but the Cap18 program needs them to run. These cards only contain general project information that does not affect the results. The same headers will be provided to each run. No checking is needed here.
+
+### Problem Cards
+
+Problem cards contain 3 inputs.
+- Problem number
+- Unit Code
+- Description
+From the problem card inputs, unit code is the only one that will affect results. However only the US Customary unit code will be checked. 
+
+### Table Cards
+
+#### Table 1
+
+Table 1 card contains 9 inputs.
+- Print stringer reaction report
+- Keep Envelopes from prior problem
+- Keep prior Table 2
+- Keep prior Table 3
+- Keep prior Table 4
+- Number of cards for Table 4
+- Keep envelopes from random lane
+- Print options
+- Skew angle
+
+#### Table 2
+
+Table 2 has two cards Table2a and Table 2b.
+
+Table 2a has 9 inputs.
+- number of slab increments
+- increment length
+- number of total moving increments
+- start station of moving load
+- end station of moving load
+- step size of moving increments
+- analysis option
+- dead load factor
+- live load factor
+
+Table 2b has 7 inputs.
+- overlay factor
+- max lanes loaded
+- multiple presence factor for 1 lane
+- multiple presence factor for 2 lanes
+- multiple presence factor for 3 lanes
+- multiple presence factor for 4 lanes
+- multiple presence factor for 5 lanes
+
+#### Table 3
+Table 3 has a varied number of inputs depending on the problem. However, they can be classified into 11 different inputs
+- number of lanes
+- number of stringers
+- number of supports 
+- number of moment points 
+- station at left lane
+- stations at right lane
+- station at stringers
+- station at supports
+- station at moment points
+- station at shear points
+
+#### Table 4
+Table 4 has a varied number of inputs, and they can be classified into 8 different inputs.
+- station from
+- station to
+- cont'd
+- bending stiffness of cap
+- slab and sidewalk loads
+- cap and stringer loads
+- moving loads
+- overlay loads 
+
+
+To validate Cap18, the program will be run for a number of various bents. These results will then be compared against one of HDRs validated software programs, LARSA. The different bent configurations will be discussed below. At the end, a summary of the different bent configurations and their inputs into the cap18 program will be shown. The goal is for each input into the Cap18 program to at least have 1 different value across all the different configurations. 
+
+## Multi-Column Bents - No Skew
+
+Here are a list of the bent configurations that fall into the above category.
+- 24' roadway and bent with 3 columns
+- 40' roadway and bent with 3 columns
+- 44' roadway and bent with 4 columns (Tx62 girders)
+
+## Multi-Column Bents - With Skew
+
+Here are a list of the bent configurations that fall into the above category.
+- 24' roadway and bent with 3 columns 15, 30, 45
+- 24' roadway and bent with 3 columns 15, 30, 45
+- 44' roadway and bent with 4 columns (Tx62 girders) 15, 30, 45
+
+## Single Column Bents
