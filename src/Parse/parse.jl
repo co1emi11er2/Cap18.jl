@@ -192,14 +192,14 @@ function parse_cap18(path=cap18_dir)
             index += 1
         end
 
-        while in_table7lf && index < length(file)  #&& file[index][40:54] == "( WORKING STRESS )"
+        while in_table7lf && index <= length(file)  #&& file[index][40:54] == "( WORKING STRESS )"
             line = file[index]
             if startswith(line, " TABLE 7")
                 index += 6
                 line = file[index]
                 in_table = true
 
-                while in_table && index < length(file)
+                while in_table && index <= length(file)
                     if line == "\f"
                         in_table = false
                         continue
@@ -207,7 +207,9 @@ function parse_cap18(path=cap18_dir)
                     reactions = Reactions(line)
                     push!(table7lf.results, reactions)
                     index += 1
-                    line = file[index]
+                    if index <= length(file)
+                        line = file[index]
+                    end
                 end
             end
 

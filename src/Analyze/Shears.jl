@@ -116,5 +116,5 @@ function Base.:-(num::Real, v::ShearEnvelopes)
     ShearEnvelopes(v.dist, v.max_shear .* num, v.min_shear .* num)
 end
 
-Base.abs(v1::Shears) = Shears(m1.dist, abs.(v1.shear))
+Base.abs(v1::Shears) = Shears(v1.dist, abs.(v1.shear))
 Base.abs(v1::ShearEnvelopes) = ShearEnvelopes(v1.dist, abs.(v1.max_shear), abs.(v1.min_shear))
