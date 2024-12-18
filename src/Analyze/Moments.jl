@@ -118,3 +118,10 @@ end
 
 Base.abs(m1::Moments) = Moments(m1.dist, abs.(m1.moments))
 Base.abs(m1::MomentEnvelopes) = MomentEnvelopes(m1.dist, abs.(m1.max_moment), abs.(m1.min_moment))
+
+function Base.max(m1::Moments, m2::Moments)
+    dist = m1.dist
+    moments = [max(mom1, mom2) for (mom1, mom2) in zip(m1.moments, m2.moments)]
+
+    return Moments(dist, moments)
+end

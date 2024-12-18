@@ -118,3 +118,10 @@ end
 
 Base.abs(v1::Shears) = Shears(v1.dist, abs.(v1.shear))
 Base.abs(v1::ShearEnvelopes) = ShearEnvelopes(v1.dist, abs.(v1.max_shear), abs.(v1.min_shear))
+
+function Base.max(s1::Shears, s2::Shears)
+    dist = s1.dist
+    shears = [max(sh1, sh2) for (sh1, sh2) in zip(s1.shear, s2.shear)]
+
+    return Shears(dist, shears)
+end

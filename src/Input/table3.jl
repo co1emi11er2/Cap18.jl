@@ -87,6 +87,9 @@ function parse_table3(file, index, table1::Table1, problem, problems)
             elseif startswith(strip(line), "STRINGERS")
                 push!(inputs, parse.(Float64, split(strip(line[19:end]), r"\s+")))
             elseif startswith(strip(line), "SUPPORTS")
+                if length(inputs) == 7
+                    push!(inputs, [0.0, 0.0])
+                end
                 push!(inputs, parse.(Int, split(strip(line[19:end]), r"\s+")))
             elseif startswith(strip(line), "MOM CONTR")
                 push!(inputs, parse.(Int, split(strip(line[19:end]), r"\s+")))
